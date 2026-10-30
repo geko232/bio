@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>geko—Био</title>
-   
+    <title>geko — био</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-   
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Unbounded:wght@600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Unbounded:wght@500;700;800;900&display=swap" rel="stylesheet">
 
     <script>
         tailwind.config = {
@@ -18,31 +18,11 @@
                 extend: {
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace'],
                         display: ['Unbounded', 'sans-serif'],
                     },
                     colors: {
-                        obsidian: '#040307',
-                        void: '#0c051a',
-                        neonPurple: '#9333ea',
-                        deepPurple: '#581c87',
-                        glowPurple: '#c084fc',
-                        cyberMagenta: '#e879f9'
-                    },
-                    animation: {
-                        'spin-slow': 'spin 8s linear infinite',
-                        'pulse-glow': 'pulseGlow 3s ease-in-out infinite',
-                        'float': 'float 5s ease-in-out infinite',
-                    },
-                    keyframes: {
-                        pulseGlow: {
-                            '0%, 100%': { opacity: '0.55', transform: 'scale(1)' },
-                            '50%': { opacity: '1', transform: 'scale(1.07)' },
-                        },
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0px)' },
-                            '50%': { transform: 'translateY(-8px)' },
-                        }
+                        obsidian: '#050308',
+                        void: '#0b0514',
                     }
                 }
             }
@@ -51,1411 +31,634 @@
 
     <style>
         :root {
-            --bg-dark: #040307;
-            --bg-deep: #0c051a;
-            --purple-main: #9333ea;
-            --purple-bright: #c084fc;
-            --magenta-glow: #e879f9;
+            --border-angle: 0deg;
         }
 
         * {
             box-sizing: border-box;
             scrollbar-width: thin;
-            scrollbar-color: #9333ea #040307;
+            scrollbar-color: #9333ea #050308;
         }
 
         ::-webkit-scrollbar {
-            width: 8px;
+            width: 6px;
         }
         ::-webkit-scrollbar-track {
-            background: #040307;
+            background: #050308;
         }
         ::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, #581c87, #9333ea, #e879f9);
+            background: linear-gradient(180deg, #581c87, #a855f7);
             border-radius: 9999px;
         }
 
         body {
-            background-color: #040307;
+            background-color: #050308;
             color: #f8fafc;
             overflow-x: hidden;
         }
 
         ::selection {
-            background: rgba(168, 85, 247, 0.45);
+            background: rgba(168, 85, 247, 0.35);
             color: #ffffff;
         }
 
-        /* Кастомный неоновый курсор для ПК */
-        @media (pointer: fine) {
-            #custom-cursor-dot,
-            #custom-cursor-ring {
-                position: fixed;
-                top: 0;
-                left: 0;
-                pointer-events: none;
-                z-index: 9999;
-                transform: translate(-50%, -50%);
-            }
-            #custom-cursor-dot {
-                width: 8px;
-                height: 8px;
-                background: #f0abfc;
-                border-radius: 50%;
-                box-shadow: 0 0 14px #e879f9, 0 0 28px #9333ea;
-                transition: width 0.2s, height 0.2s, background-color 0.2s;
-            }
-            #custom-cursor-ring {
-                width: 36px;
-                height: 36px;
-                border: 1.5px solid rgba(192, 132, 252, 0.6);
-                border-radius: 50%;
-                box-shadow: 0 0 20px rgba(147, 51, 234, 0.35), inset 0 0 10px rgba(192, 132, 252, 0.2);
-                transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1), height 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s, background-color 0.25s;
-            }
-            body.cursor-hover #custom-cursor-ring {
-                width: 54px;
-                height: 54px;
-                border-color: #e879f9;
-                background-color: rgba(168, 85, 247, 0.12);
-            }
-            body.cursor-hover #custom-cursor-dot {
-                width: 12px;
-                height: 12px;
-                background: #ffffff;
-            }
-        }
-
-        /* Многослойный фон с анимированной туманностью */
-        .bg-mesh {
+        /* Мягкое фиолетовое северное сияние на фоне */
+        .aurora-bg {
             position: fixed;
             inset: 0;
             z-index: -3;
-            background: 
-                radial-gradient(circle at 15% 15%, rgba(107, 33, 168, 0.32) 0%, transparent 45%),
-                radial-gradient(circle at 85% 20%, rgba(168, 85, 247, 0.24) 0%, transparent 42%),
-                radial-gradient(circle at 50% 85%, rgba(217, 70, 239, 0.18) 0%, transparent 50%),
-                linear-gradient(180deg, #040307 0%, #0b0418 50%, #040307 100%);
-            transition: filter 0.5s ease;
+            background: radial-gradient(circle at 50% 0%, #17082e 0%, #07030d 55%, #040207 100%);
+            overflow: hidden;
         }
 
-        body.overdrive-mode .bg-mesh {
-            filter: hue-rotate(15deg) saturate(1.6) contrast(1.1);
-        }
-
-        /* Кибер-сетка с перспективой */
-        .cyber-grid {
-            position: fixed;
-            inset: 0;
-            z-index: -2;
-            background-image: 
-                linear-gradient(to right, rgba(168, 85, 247, 0.07) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(168, 85, 247, 0.07) 1px, transparent 1px);
-            background-size: 42px 42px;
-            mask-image: radial-gradient(circle at center, black 35%, transparent 92%);
-            -webkit-mask-image: radial-gradient(circle at center, black 35%, transparent 92%);
+        .aurora-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(110px);
+            opacity: 0.45;
             pointer-events: none;
+            animation: floatAurora 16s ease-in-out infinite alternate;
         }
 
-        /* CRT Сканлайны в режиме Overdrive */
-        .scanlines-overlay {
-            position: fixed;
-            inset: 0;
-            z-index: 40;
-            pointer-events: none;
-            background: repeating-linear-gradient(
-                to bottom,
-                transparent 0px,
-                transparent 2px,
-                rgba(147, 51, 234, 0.05) 3px,
-                rgba(0, 0, 0, 0.18) 4px
-            );
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-        body.overdrive-mode .scanlines-overlay {
-            opacity: 1;
+        .blob-1 {
+            width: 520px;
+            height: 520px;
+            background: radial-gradient(circle, #7e22ce 0%, transparent 70%);
+            top: -120px;
+            left: -100px;
         }
 
-        /* Холст с частицами и 3D-фигурами */
+        .blob-2 {
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, #a855f7 0%, transparent 70%);
+            top: 25%;
+            right: -180px;
+            animation-delay: -5s;
+            animation-duration: 20s;
+        }
+
+        .blob-3 {
+            width: 480px;
+            height: 480px;
+            background: radial-gradient(circle, #c026d3 0%, transparent 70%);
+            bottom: -120px;
+            left: 20%;
+            animation-delay: -10s;
+            animation-duration: 18s;
+        }
+
+        @keyframes floatAurora {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+            50% {
+                transform: translate(40px, -30px) scale(1.12);
+            }
+            100% {
+                transform: translate(-30px, 40px) scale(0.95);
+            }
+        }
+
+        /* Холст со светящимися частицами */
         #bg-canvas {
             position: fixed;
-            top: 0;
-            left: 0;
+            inset: 0;
             width: 100%;
             height: 100%;
             z-index: -1;
             pointer-events: none;
         }
 
-        /* Стеклянные карточки с лазерной рамкой при наведении */
+        /* Мягкий неоновый ореол за курсором */
+        #cursor-glow {
+            position: fixed;
+            width: 380px;
+            height: 380px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(168, 85, 247, 0.14) 0%, rgba(192, 132, 252, 0.05) 40%, transparent 70%);
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 0;
+            transition: width 0.3s ease, height 0.3s ease;
+        }
+
+        /* Стеклянные карточки */
         .glass-card {
-            background: rgba(12, 5, 26, 0.62);
-            backdrop-filter: blur(22px);
-            -webkit-backdrop-filter: blur(22px);
-            border: 1px solid rgba(192, 132, 252, 0.2);
+            background: linear-gradient(145deg, rgba(19, 9, 37, 0.65) 0%, rgba(10, 5, 20, 0.8) 100%);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(192, 132, 252, 0.16);
             box-shadow: 
-                0 20px 50px rgba(0, 0, 0, 0.78),
-                0 0 35px rgba(147, 51, 234, 0.12),
-                inset 0 1px 1px rgba(255, 255, 255, 0.12);
-            transition: border-color 0.35s ease, box-shadow 0.35s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+                0 20px 50px rgba(0, 0, 0, 0.7),
+                0 0 35px rgba(147, 51, 234, 0.08),
+                inset 0 1px 1px rgba(255, 255, 255, 0.1);
             position: relative;
             overflow: hidden;
+            transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .glass-card:hover {
-            border-color: rgba(232, 121, 249, 0.55);
+            border-color: rgba(216, 180, 254, 0.45);
             box-shadow: 
-                0 25px 65px rgba(0, 0, 0, 0.85),
-                0 0 50px rgba(168, 85, 247, 0.32),
-                inset 0 1px 1px rgba(255, 255, 255, 0.22);
+                0 25px 60px rgba(0, 0, 0, 0.8),
+                0 0 45px rgba(168, 85, 247, 0.28),
+                inset 0 1px 1px rgba(255, 255, 255, 0.2);
         }
 
-        body.overdrive-mode .glass-card {
-            border-color: rgba(232, 121, 249, 0.5);
-            box-shadow: 0 0 55px rgba(168, 85, 247, 0.35), inset 0 0 20px rgba(168, 85, 247, 0.12);
-        }
-
-        /* Вращающийся лазерный градиент по контуру особых блоков */
-        .laser-border-box {
-            position: relative;
-        }
-        .laser-border-box::after {
+        /* Переливающаяся лазерная рамка */
+        .laser-border::after {
             content: '';
             position: absolute;
             inset: 0;
             border-radius: inherit;
             padding: 1.5px;
-            background: conic-gradient(from var(--angle, 0deg), transparent 40%, #9333ea 70%, #e879f9 90%, #ffffff 100%);
+            background: conic-gradient(
+                from var(--border-angle, 0deg),
+                transparent 35%,
+                rgba(147, 51, 234, 0.7) 65%,
+                rgba(232, 121, 249, 0.95) 85%,
+                #ffffff 95%,
+                transparent 100%
+            );
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             -webkit-mask-composite: xor;
             mask-composite: exclude;
             opacity: 0;
-            transition: opacity 0.4s ease;
+            transition: opacity 0.45s ease;
             pointer-events: none;
         }
-        .laser-border-box:hover::after,
-        body.overdrive-mode .laser-border-box::after {
+
+        .laser-border:hover::after,
+        .laser-border-always::after {
             opacity: 1;
         }
 
-        /* Подсветка курсора внутри карточек */
+        /* Внутреннее свечение за курсором внутри карточек */
         .spotlight-card::before {
             content: '';
             position: absolute;
             inset: 0;
             background: radial-gradient(
-                550px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-                rgba(216, 180, 254, 0.15),
-                transparent 42%
+                480px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+                rgba(192, 132, 252, 0.16),
+                transparent 45%
             );
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.35s ease;
             pointer-events: none;
             z-index: 1;
         }
+
         .spotlight-card:hover::before {
             opacity: 1;
         }
 
-        /* Кибер-глитч и неоновое свечение для ника geko */
-        .geko-glitch-wrapper {
+        /* Блик волны при наведении на ссылки */
+        .shimmer-hover {
             position: relative;
-            display: inline-block;
+            overflow: hidden;
         }
-
-        .geko-title {
-            background: linear-gradient(90deg, #ffffff 0%, #f3e8ff 22%, #c084fc 48%, #e879f9 75%, #ffffff 100%);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: shineText 3.5s linear infinite;
-            filter: drop-shadow(0 0 28px rgba(168, 85, 247, 0.65));
-            position: relative;
-            z-index: 2;
-        }
-
-        .geko-glitch-wrapper::before,
-        .geko-glitch-wrapper::after {
-            content: attr(data-text);
+        .shimmer-hover .shimmer-wave {
             position: absolute;
             top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0.75;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .geko-glitch-wrapper::before {
-            color: #e879f9;
-            animation: glitchAnim1 3.8s infinite linear alternate-reverse;
-        }
-
-        .geko-glitch-wrapper::after {
-            color: #7e22ce;
-            animation: glitchAnim2 3.2s infinite linear alternate-reverse;
-        }
-
-        @keyframes shineText {
-            to { background-position: 200% center; }
-        }
-
-        @keyframes glitchAnim1 {
-            0%, 92%, 100% { transform: translate(0, 0); clip-path: inset(0 0 0 0); opacity: 0; }
-            93% { transform: translate(-3px, -1px); clip-path: inset(15% 0 65% 0); opacity: 0.85; }
-            96% { transform: translate(3px, 2px); clip-path: inset(60% 0 10% 0); opacity: 0.85; }
-        }
-
-        @keyframes glitchAnim2 {
-            0%, 90%, 100% { transform: translate(0, 0); clip-path: inset(0 0 0 0); opacity: 0; }
-            91% { transform: translate(3px, 1px); clip-path: inset(40% 0 35% 0); opacity: 0.85; }
-            95% { transform: translate(-4px, -2px); clip-path: inset(75% 0 5% 0); opacity: 0.85; }
-        }
-
-        /* Голографический блик поверх блока владельца сервера */
-        .holo-shimmer {
-            position: absolute;
-            top: 0;
-            left: -150%;
-            width: 120%;
+            left: -120%;
+            width: 80%;
             height: 100%;
             background: linear-gradient(
-                115deg,
-                transparent 20%,
-                rgba(192, 132, 252, 0.08) 45%,
-                rgba(255, 255, 255, 0.16) 50%,
-                rgba(192, 132, 252, 0.08) 55%,
-                transparent 80%
+                90deg,
+                transparent,
+                rgba(216, 180, 254, 0.12),
+                transparent
             );
-            transform: skewX(-20deg);
-            animation: holoSweep 6s ease-in-out infinite;
+            transform: skewX(-25deg);
+            transition: left 0.75s ease;
             pointer-events: none;
         }
+        .shimmer-hover:hover .shimmer-wave {
+            left: 140%;
+        }
 
-        @keyframes holoSweep {
-            0%, 35% { left: -150%; }
-            75%, 100% { left: 150%; }
+        /* Неоновый градиентный ник geko */
+        .geko-neon-title {
+            background: linear-gradient(
+                110deg,
+                #ffffff 0%,
+                #f3e8ff 20%,
+                #c084fc 45%,
+                #e879f9 65%,
+                #9333ea 85%,
+                #ffffff 100%
+            );
+            background-size: 220% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: flowGradient 5s linear infinite, gentleFloat 4.5s ease-in-out infinite;
+            filter: drop-shadow(0 0 35px rgba(168, 85, 247, 0.65));
+        }
+
+        @keyframes flowGradient {
+            to {
+                background-position: 220% center;
+            }
+        }
+
+        @keyframes gentleFloat {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-6px);
+            }
+        }
+
+        /* Плавная анимация иконок */
+        .floating-icon {
+            animation: iconFloat 4s ease-in-out infinite;
+        }
+
+        @keyframes iconFloat {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-5px) rotate(3deg);
+            }
         }
 
         /* Курсор печатной машинки */
-        .typewriter-cursor {
+        .type-cursor {
             display: inline-block;
-            width: 3px;
-            height: 1.15em;
-            background-color: #e879f9;
-            margin-left: 5px;
+            width: 2px;
+            height: 1.1em;
+            background: #e879f9;
+            margin-left: 4px;
             vertical-align: middle;
-            box-shadow: 0 0 12px #e879f9;
-            animation: blink 0.85s infinite;
+            box-shadow: 0 0 10px #e879f9;
+            animation: blinkCursor 0.9s infinite;
         }
 
-        @keyframes blink {
+        @keyframes blinkCursor {
             0%, 49% { opacity: 1; }
             50%, 100% { opacity: 0; }
         }
 
-        /* Анимация вылетающих "+1 REP ⚡" */
-        .floating-rep {
-            position: fixed;
-            pointer-events: none;
-            z-index: 9999;
-            font-family: 'Unbounded', sans-serif;
-            font-weight: 800;
-            font-size: 0.9rem;
-            color: #f0abfc;
-            text-shadow: 0 0 14px #9333ea, 0 0 24px #e879f9;
-            animation: floatUpFade 1.1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-
-        @keyframes floatUpFade {
-            0% { opacity: 1; transform: translateY(0) scale(0.8); }
-            40% { opacity: 1; transform: translateY(-28px) scale(1.15); }
-            100% { opacity: 0; transform: translateY(-65px) scale(0.95); }
-        }
-
-        /* Плавное появление секций при загрузке */
-        .reveal-item {
+        /* Плавное появление элементов при открытии страницы */
+        .reveal-up {
             opacity: 0;
-            transform: translateY(24px);
-            animation: revealUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            transform: translateY(28px);
+            animation: revealAnim 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
-        .delay-100 { animation-delay: 0.08s; }
-        .delay-200 { animation-delay: 0.18s; }
-        .delay-300 { animation-delay: 0.28s; }
-        .delay-400 { animation-delay: 0.38s; }
-        .delay-500 { animation-delay: 0.48s; }
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.22s; }
+        .delay-3 { animation-delay: 0.34s; }
+        .delay-4 { animation-delay: 0.46s; }
+        .delay-5 { animation-delay: 0.58s; }
 
-        @keyframes revealUp {
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* 3D перспектива */
-        .tilt-wrapper {
-            perspective: 1200px;
-        }
-        .tilt-element {
-            transform-style: preserve-3d;
-            will-change: transform;
-        }
-
-        /* Анимированная полоса прогресса в карточках игр */
-        .skill-bar-fill {
-            background: linear-gradient(90deg, #6b21a8, #a855f7, #e879f9);
-            background-size: 200% 100%;
-            animation: barGradient 3s linear infinite;
-            box-shadow: 0 0 14px rgba(192, 132, 252, 0.6);
-        }
-
-        @keyframes barGradient {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 200% 50%; }
+        @keyframes revealAnim {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
-<body class="min-h-screen antialiased selection:bg-purple-600 selection:text-white relative">
+<body class="min-h-screen antialiased relative flex flex-col justify-between">
 
-    <!-- Кастомный неоновый курсор -->
-    <div id="custom-cursor-dot" class="hidden md:block"></div>
-    <div id="custom-cursor-ring" class="hidden md:block"></div>
-
-    <!-- Фоновые слои -->
-    <div class="bg-mesh"></div>
-    <div class="cyber-grid"></div>
-    <div class="scanlines-overlay"></div>
+    <!-- Анимированное северное сияние и холст с частицами -->
+    <div class="aurora-bg">
+        <div class="aurora-blob blob-1"></div>
+        <div class="aurora-blob blob-2"></div>
+        <div class="aurora-blob blob-3"></div>
+    </div>
+    <div id="cursor-glow" class="hidden md:block"></div>
     <canvas id="bg-canvas"></canvas>
 
-    <!-- ВЕРХНЯЯ ПАНЕЛЬ УПРАВЛЕНИЯ (HUD) -->
-    <header class="w-full max-w-4xl mx-auto px-4 pt-5 pb-2 flex flex-wrap items-center justify-between gap-3 z-20 relative reveal-item">
-        <!-- Статус системы + таймер сессии -->
-        <div class="flex items-center gap-3 px-3.5 py-1.5 rounded-full bg-void/85 border border-purple-500/30 backdrop-blur-md shadow-[0_0_20px_rgba(147,51,234,0.2)]">
-            <span class="relative flex h-2.5 w-2.5">
-                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
-                <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-purple-500"></span>
-            </span>
-            <span class="text-xs font-mono tracking-wider text-purple-200 uppercase">geko.sys // v4.0</span>
-            <span class="text-purple-500/50">|</span>
-            <span id="session-timer" class="text-xs font-mono text-purple-300/90">00:00</span>
-        </div>
+    <!-- ОСНОВНОЙ КОНТЕНТ -->
+    <main class="w-full max-w-3xl mx-auto px-5 pt-14 sm:pt-20 pb-16 space-y-10 relative z-10">
 
-        <!-- Переключатели интерактивных режимов и звука -->
-        <div class="flex flex-wrap items-center gap-2">
-            <!-- Встроенный Synth-плеер + мини-визуализатор -->
-            <button id="toggle-music-btn" onclick="toggleSynthAtmosphere()" class="px-3 py-1.5 rounded-full bg-void/85 hover:bg-purple-950/80 border border-purple-500/35 text-xs font-mono text-purple-200 flex items-center gap-2 transition-all shadow-md" title="Включить кибер-синт атмосферу">
-                <canvas id="audio-visualizer" width="28" height="14" class="rounded-sm"></canvas>
-                <span id="music-status-text">SYNTH: ВЫКЛ</span>
-            </button>
+        <!-- 1. ГЛАВНЫЙ БЛОК (БЕЗ АВАТАРКИ, ЧИСТАЯ ЭСТЕТИКА) -->
+        <section class="reveal-up delay-1 text-center space-y-5">
+            <!-- Светящийся ник geko -->
+            <div class="inline-block relative">
+                <div class="absolute -inset-8 bg-purple-600/20 rounded-full blur-3xl pointer-events-none"></div>
+                <h1 class="text-6xl sm:text-8xl font-display font-black tracking-tight geko-neon-title select-none">
+                    geko
+                </h1>
+            </div>
 
-            <!-- Кнопка режима Matrix Rain -->
-            <button id="toggle-matrix-btn" onclick="toggleMatrixMode()" class="px-3 py-1.5 rounded-full bg-void/85 hover:bg-purple-950/80 border border-purple-500/35 text-xs font-mono text-purple-200 flex items-center gap-1.5 transition-all" title="Фиолетовая Матрица на фоне">
-                <svg class="w-3.5 h-3.5 text-fuchsia-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/>
-                </svg>
-                <span id="matrix-status-text">MATRIX: ВЫКЛ</span>
-            </button>
+            <!-- Живая строка с плавной печатью -->
+            <div class="h-7 flex items-center justify-center">
+                <span id="typewriter" class="text-sm sm:text-base font-medium text-purple-200/90 tracking-wide"></span>
+                <span class="type-cursor"></span>
+            </div>
 
-            <!-- Кнопка Overdrive -->
-            <button id="toggle-overdrive-btn" onclick="toggleOverdriveMode()" class="px-3 py-1.5 rounded-full bg-void/85 hover:bg-purple-950/80 border border-purple-500/35 text-xs font-mono text-purple-200 flex items-center gap-1.5 transition-all" title="Усилить неоновое свечение">
-                <svg class="w-3.5 h-3.5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                </svg>
-                <span id="overdrive-status-text">OVERDRIVE</span>
-            </button>
+            <!-- Короткое атмосферное описание -->
+            <p class="max-w-xl mx-auto text-slate-300/85 text-sm sm:text-base leading-relaxed font-normal">
+                Люблю проводить время в любимых играх, развивать собственный проект в <span class="text-purple-300 font-medium">Minecraft</span> и зависать в хорошей компании.
+            </p>
+        </section>
 
-            <!-- Кнопка звуков кликов (SFX) -->
-            <button id="toggle-sfx-btn" onclick="toggleSoundEffects()" class="px-3 py-1.5 rounded-full bg-void/85 hover:bg-purple-950/80 border border-purple-500/35 text-xs font-mono text-purple-200 flex items-center gap-1.5 transition-all" title="Звуковые эффекты кликов">
-                <svg class="w-3.5 h-3.5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/>
-                </svg>
-                <span id="sfx-status-text">SFX: ВКЛ</span>
-            </button>
-        </div>
-    </header>
+        <!-- 2. БЛОК ВЛАДЕЛЬЦА СЕРВЕРА (ЛАКОНИЧНО И КРАСИВО) -->
+        <section class="reveal-up delay-2">
+            <div class="glass-card spotlight-card laser-border laser-border-always tilt-card rounded-3xl p-6 sm:p-8 group">
+                <!-- Фоновые неоновые блики -->
+                <div class="absolute -top-20 -left-20 w-56 h-56 bg-purple-600/25 rounded-full blur-3xl pointer-events-none group-hover:bg-purple-500/35 transition duration-700"></div>
+                <div class="absolute -bottom-20 -right-20 w-56 h-56 bg-fuchsia-600/20 rounded-full blur-3xl pointer-events-none group-hover:bg-fuchsia-500/30 transition duration-700"></div>
 
-    <!-- ОСНОВНОЙ КОНТЕЙНЕР -->
-    <main class="w-full max-w-4xl mx-auto px-4 py-6 space-y-8 relative z-10 pb-20">
-
-        <!-- 1. ГЛАВНАЯ КАРТОЧКА ПРОФИЛЯ (БЕЗ АВАТАРКИ, С ГЛИТЧ-НИКОМ И КНОПКОЙ +REP) -->
-        <section class="tilt-wrapper reveal-item delay-100">
-            <div id="hero-card" class="glass-card spotlight-card laser-border-box tilt-element rounded-3xl p-6 sm:p-10 relative">
-                
-                <!-- Фоновые неоновые сферы внутри карточки -->
-                <div class="absolute -top-24 left-1/3 w-96 h-48 bg-purple-600/30 rounded-full blur-3xl pointer-events-none"></div>
-                <div class="absolute -bottom-24 right-1/4 w-80 h-44 bg-fuchsia-600/20 rounded-full blur-3xl pointer-events-none"></div>
-
-                <!-- Верхние бейджи профиля -->
-                <div class="flex flex-wrap items-center justify-between gap-3 mb-7 relative z-10">
-                    <!-- Статус онлайн -->
-                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-950/60 border border-emerald-500/40 text-emerald-300 text-xs font-medium shadow-[0_0_15px_rgba(16,185,129,0.25)]">
-                        <span class="relative flex h-2.5 w-2.5">
-                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-400"></span>
-                        </span>
-                        В сети • Готов к каткам
-                    </div>
-
-                    <!-- Корона владельца сервера -->
-                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-purple-950/90 via-fuchsia-950/90 to-purple-950/90 border border-purple-400/45 text-purple-200 text-xs font-semibold shadow-[0_0_22px_rgba(168,85,247,0.35)]">
-                        <svg class="w-4 h-4 text-amber-400 drop-shadow-[0_0_8px_rgba(251,191,36,0.9)]" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M5 16L3 5l5.5 5L12 4l3.5 6L21 5l-2 11H5zm14 3c0 .6-.4 1-1 1H6c-.6 0-1-.4-1-1v-1h14v1z"/>
-                        </svg>
-                        <span>Владелец сервера</span>
-                    </div>
-                </div>
-
-                <!-- Основной блок имени geko (без аватара) -->
-                <div class="relative z-10 text-center md:text-left">
-                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                        <div class="flex flex-col md:flex-row md:items-baseline gap-2 md:gap-4 justify-center md:justify-start">
-                            <div class="geko-glitch-wrapper cursor-pointer select-none" data-text="geko" onmouseenter="scrambleHeroName()" onclick="scrambleHeroName(); copyTextToClipboard('geko', 'Никнейм geko скопирован!')">
-                                <h1 id="geko-main-title" class="text-5xl sm:text-7xl font-display font-black tracking-tight geko-title">
-                                    geko
-                                </h1>
-                            </div>
-                            <span class="inline-flex items-center self-center md:self-auto gap-1.5 px-3 py-1 rounded-lg bg-purple-500/20 border border-purple-400/35 text-purple-200 font-mono text-xs shadow-[0_0_15px_rgba(147,51,234,0.3)]">
-                                <span class="w-1.5 h-1.5 rounded-full bg-fuchsia-400 animate-ping"></span>
-                                #0001 // VIP
-                            </span>
-                        </div>
-
-                        <!-- Интерактивная кнопка "+REP / Зарядить вайб" -->
-                        <div class="flex items-center justify-center md:justify-end">
-                            <button id="rep-btn" onclick="triggerRepBoost(event)" class="group relative inline-flex items-center gap-3 px-5 py-2.5 rounded-2xl bg-gradient-to-r from-purple-700/80 via-fuchsia-600/80 to-purple-700/80 hover:from-purple-600 hover:via-fuchsia-500 hover:to-purple-600 border border-purple-300/40 text-white font-display font-bold text-xs sm:text-sm shadow-[0_0_25px_rgba(168,85,247,0.5)] hover:shadow-[0_0_35px_rgba(232,121,249,0.85)] active:scale-95 transition-all">
-                                <span class="text-base group-hover:rotate-12 group-hover:scale-125 transition-transform">⚡</span>
-                                <span>+REP</span>
-                                <span id="rep-counter" class="px-2.5 py-0.5 rounded-lg bg-obsidian/70 border border-purple-300/30 font-mono text-xs text-purple-200">
-                                    777
-                                </span>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Строка с эффектом печатной машинки -->
-                    <div class="mt-4 h-7 flex items-center justify-center md:justify-start">
-                        <span class="text-fuchsia-400 font-mono text-sm sm:text-base mr-2 font-bold">root@geko:~$</span>
-                        <span id="typewriter-text" class="text-sm sm:text-lg font-mono font-semibold text-purple-200 tracking-wide"></span>
-                        <span class="typewriter-cursor"></span>
-                    </div>
-
-                    <!-- Описание профиля -->
-                    <p class="mt-4 text-slate-300/95 text-sm sm:text-base leading-relaxed max-w-2xl">
-                        Привет! Я <span class="text-purple-300 font-semibold">geko</span> — создатель и владелец собственного проекта в <span class="text-white font-medium">Minecraft</span>, а также фанат динамичных и соревновательных игр. Провожу время за развитием своего сервера, жёсткими катками в <span class="text-purple-300 font-medium">CS2</span> и <span class="text-purple-300 font-medium">Dota 2</span>, а также чиллю в <span class="text-purple-300 font-medium">Roblox</span>.
-                    </p>
-
-                    <!-- Теги характеристик профиля -->
-                    <div class="mt-6 flex flex-wrap items-center justify-center md:justify-start gap-2.5">
-                        <div class="px-3.5 py-1.5 rounded-xl bg-white/[0.04] border border-purple-500/25 flex items-center gap-2 text-xs text-slate-200 hover:border-purple-400/60 transition">
-                            <svg class="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"/>
+                <div class="relative z-10 flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-5 text-center sm:text-left">
+                    <!-- Иконка светящейся короны -->
+                    <div class="relative shrink-0">
+                        <div class="absolute -inset-1.5 bg-gradient-to-tr from-purple-600 to-fuchsia-500 rounded-2xl blur-md opacity-70 group-hover:opacity-100 transition duration-500"></div>
+                        <div class="relative w-16 h-16 sm:w-18 sm:h-18 rounded-2xl bg-[#080411] border border-purple-400/40 flex items-center justify-center shadow-[0_0_30px_rgba(168,85,247,0.4)]">
+                            <svg class="w-9 h-9 text-purple-300 drop-shadow-[0_0_12px_rgba(232,121,249,0.9)] floating-icon" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M5 16L3 5l5.5 5L12 4l3.5 6L21 5l-2 11H5zm14 3c0 .6-.4 1-1 1H6c-.6 0-1-.4-1-1v-1h14v1z"/>
                             </svg>
-                            <span>Статус: <strong class="text-purple-300">Владелец сервера</strong></span>
                         </div>
+                    </div>
 
-                        <div class="px-3.5 py-1.5 rounded-xl bg-white/[0.04] border border-purple-500/25 flex items-center gap-2 text-xs text-slate-200 hover:border-purple-400/60 transition">
-                            <svg class="w-4 h-4 text-fuchsia-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/>
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                            </svg>
-                            <span>Игры: <strong class="text-purple-300">MC • Roblox • CS2 • Dota 2</strong></span>
-                        </div>
-
-                        <div class="px-3.5 py-1.5 rounded-xl bg-white/[0.04] border border-purple-500/25 flex items-center gap-2 text-xs text-slate-200 hover:border-purple-400/60 transition">
-                            <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                            </svg>
-                            <span>Пинг: <strong id="live-ping" class="text-emerald-400 font-mono">12 ms</strong></span>
-                        </div>
+                    <!-- Текст карточки -->
+                    <div class="space-y-1">
+                        <h2 class="text-xl sm:text-2xl font-display font-bold text-white tracking-tight group-hover:text-purple-200 transition">
+                            Владелец сервера Minecraft
+                        </h2>
+                        <p class="text-sm text-purple-200/70">
+                            Создаю свой мир, уникальные механики и ламповую атмосферу
+                        </p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- 2. СТАТУС ВЛАДЕЛЬЦА СЕРВЕРА MINECRAFT (СТРОГО СТАТУС ВЛАДЕЛЬЦА) -->
-        <section class="reveal-item delay-200">
-            <div class="glass-card spotlight-card laser-border-box game-tilt-card rounded-3xl p-6 sm:p-8 border-purple-500/45 relative overflow-hidden group">
-                <!-- Голографический световой блик -->
-                <div class="holo-shimmer"></div>
-
-                <!-- Неоновые фоновые блики -->
-                <div class="absolute -left-16 -top-16 w-64 h-64 bg-purple-600/25 rounded-full blur-3xl pointer-events-none group-hover:bg-purple-500/40 transition duration-500"></div>
-                <div class="absolute -right-16 -bottom-16 w-64 h-64 bg-fuchsia-600/25 rounded-full blur-3xl pointer-events-none group-hover:bg-fuchsia-500/35 transition duration-500"></div>
-
-                <div class="flex flex-col sm:flex-row items-center justify-between gap-6 relative z-10 text-center sm:text-left">
-                    <div class="flex flex-col sm:flex-row items-center gap-5">
-                        <!-- Светящаяся корона с орбитальными кольцами -->
-                        <div class="relative shrink-0">
-                            <div class="absolute -inset-2 bg-gradient-to-r from-purple-600 via-fuchsia-500 to-purple-600 rounded-2xl blur-md opacity-75 group-hover:opacity-100 transition duration-500 animate-pulse-glow"></div>
-                            <div class="relative w-18 h-18 sm:w-20 sm:h-20 p-4 rounded-2xl bg-obsidian/95 border border-purple-400/60 flex items-center justify-center shadow-[0_0_35px_rgba(168,85,247,0.55)] group-hover:scale-105 transition duration-300">
-                                <!-- Анимированное пунктирное кольцо вокруг короны -->
-                                <div class="absolute inset-1.5 rounded-xl border border-dashed border-purple-400/40 animate-spin-slow"></div>
-                                <svg class="w-10 h-10 sm:w-11 sm:h-11 text-purple-300 drop-shadow-[0_0_12px_rgba(232,121,249,0.95)] animate-float" viewBox="0 0 24 24" fill="currentColor">
-                                    <path d="M5 16L3 5l5.5 5L12 4l3.5 6L21 5l-2 11H5zm14 3c0 .6-.4 1-1 1H6c-.6 0-1-.4-1-1v-1h14v1z"/>
-                                </svg>
-                            </div>
-                        </div>
-
-                        <!-- Заголовок и подзаголовок -->
-                        <div class="space-y-1.5">
-                            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-950/90 border border-purple-400/40 text-[11px] font-mono font-semibold text-purple-200 uppercase tracking-widest shadow-[0_0_15px_rgba(147,51,234,0.3)]">
-                                <span class="w-2 h-2 rounded-full bg-fuchsia-400 animate-ping"></span>
-                                FOUNDER &amp; OWNER
-                            </div>
-                            <h2 class="text-2xl sm:text-3xl font-display font-extrabold text-white tracking-tight group-hover:text-purple-200 transition">
-                                Владелец сервера Minecraft
-                            </h2>
-                            <p class="text-sm sm:text-base text-purple-200/80 font-medium">
-                                Создатель, идейный вдохновитель и главный администратор собственного проекта
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Правый декоративный бейдж статуса -->
-                    <div class="shrink-0 flex flex-col items-center sm:items-end gap-2">
-                        <div class="px-4 py-3 rounded-2xl bg-obsidian/85 border border-purple-400/40 shadow-[0_0_25px_rgba(147,51,234,0.25)] flex items-center gap-3.5 group-hover:border-fuchsia-400/70 transition">
-                            <svg class="w-6 h-6 text-fuchsia-400 animate-float" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/>
-                                <polyline stroke-linecap="round" stroke-linejoin="round" points="3.27 6.96 12 12.01 20.73 6.96"/>
-                                <line stroke-linecap="round" stroke-linejoin="round" x1="12" y1="22.08" x2="12" y2="12"/>
-                            </svg>
-                            <div class="text-left">
-                                <div class="text-[10px] font-mono uppercase tracking-wider text-purple-400">Статус</div>
-                                <div class="text-xs sm:text-sm font-mono font-bold text-white tracking-wide">SERVER OWNER</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 3. СЕКЦИЯ ЛЮБИМЫХ ИГР ("Во что я играю") -->
-        <section class="reveal-item delay-300">
-            <div class="flex items-center justify-between mb-4 px-1">
-                <div class="flex items-center gap-2.5">
-                    <span class="w-2 h-6 rounded-full bg-gradient-to-b from-fuchsia-400 to-purple-700 shadow-[0_0_14px_#9333ea]"></span>
-                    <h2 class="text-xl sm:text-2xl font-display font-bold text-white tracking-tight">
-                        Во что я играю
-                    </h2>
-                </div>
-                <span class="text-xs font-mono text-purple-300/75">
-                    Нажми на карточку для эффекта ⚡
-                </span>
-            </div>
-
-            <!-- Сетка из 4 карточек игр -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-
-                <!-- Игра 1: Minecraft -->
-                <div class="glass-card spotlight-card laser-border-box game-tilt-card rounded-2xl p-6 group cursor-pointer" onclick="triggerGameCardAction(event, 'Minecraft', '#a855f7')">
-                    <div class="flex items-start justify-between gap-4 mb-4 relative z-10">
-                        <div class="flex items-center gap-3.5">
-                            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-700/50 to-emerald-900/40 border border-purple-400/40 flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 group-hover:border-fuchsia-400 transition duration-300 shadow-[0_0_20px_rgba(168,85,247,0.3)]">
-                                <svg class="w-8 h-8 text-purple-300 group-hover:text-white transition" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
-                                </svg>
-                            </div>
-                            <div>
-                                <div class="flex items-center gap-2">
-                                    <h3 class="text-lg font-display font-bold text-white group-hover:text-purple-300 transition">
-                                        Minecraft
-                                    </h3>
-                                    <span class="px-2 py-0.5 text-[10px] font-mono uppercase rounded bg-purple-500/30 text-purple-200 border border-purple-400/40">
-                                        MAIN
-                                    </span>
-                                </div>
-                                <p class="text-xs font-mono text-purple-300/80 mt-0.5">
-                                    Владелец проекта • Сборки &amp; Выживание
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <p class="text-sm text-slate-300/90 leading-relaxed mb-4 relative z-10">
-                        Создаю уникальные механики, настраиваю плагины, строю атмосферные миры и руковожу собственным сервером.
-                    </p>
-
-                    <!-- Индикатор мастерства / вайба -->
-                    <div class="mb-3 relative z-10">
-                        <div class="flex justify-between text-[11px] font-mono text-purple-300/90 mb-1">
-                            <span>Уровень вовлечённости</span>
-                            <span>100% MAX</span>
-                        </div>
-                        <div class="w-full h-1.5 rounded-full bg-obsidian/90 overflow-hidden border border-purple-500/20">
-                            <div class="h-full w-full skill-bar-fill rounded-full"></div>
-                        </div>
-                    </div>
-
-                    <div class="pt-3 border-t border-purple-500/20 flex items-center justify-between text-xs font-mono relative z-10">
-                        <span class="text-slate-400">Опыт: <strong class="text-purple-300">5,000+ ч.</strong></span>
-                        <span class="text-purple-300 group-hover:translate-x-1 transition inline-flex items-center gap-1">
-                            Владелец сервера →
-                        </span>
-                    </div>
-                </div>
-
-                <!-- Игра 2: Roblox -->
-                <div class="glass-card spotlight-card laser-border-box game-tilt-card rounded-2xl p-6 group cursor-pointer" onclick="triggerGameCardAction(event, 'Roblox', '#e879f9')">
-                    <div class="flex items-start justify-between gap-4 mb-4 relative z-10">
-                        <div class="flex items-center gap-3.5">
-                            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-700/50 to-fuchsia-900/50 border border-purple-400/40 flex items-center justify-center group-hover:scale-110 group-hover:-rotate-3 group-hover:border-fuchsia-400 transition duration-300 shadow-[0_0_20px_rgba(232,121,249,0.3)]">
-                                <svg class="w-8 h-8 text-purple-300 group-hover:text-white transition" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <rect x="5" y="5" width="14" height="14" rx="2" transform="rotate(15 12 12)" />
-                                    <rect x="10" y="10" width="4" height="4" transform="rotate(15 12 12)" fill="currentColor" />
-                                </svg>
-                            </div>
-                            <div>
-                                <div class="flex items-center gap-2">
-                                    <h3 class="text-lg font-display font-bold text-white group-hover:text-purple-300 transition">
-                                        Roblox
-                                    </h3>
-                                    <span class="px-2 py-0.5 text-[10px] font-mono uppercase rounded bg-fuchsia-500/30 text-fuchsia-200 border border-fuchsia-400/40">
-                                        CHILL &amp; FUN
-                                    </span>
-                                </div>
-                                <p class="text-xs font-mono text-purple-300/80 mt-0.5">
-                                    Топ режимы • Кооп &amp; Трейдинг
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <p class="text-sm text-slate-300/90 leading-relaxed mb-4 relative z-10">
-                        Залетаю с тиммейтами в популярные плейсы, кастомные режимы, хорроры, симуляторы и редкие ивенты.
-                    </p>
-
-                    <div class="mb-3 relative z-10">
-                        <div class="flex justify-between text-[11px] font-mono text-purple-300/90 mb-1">
-                            <span>Вайб &amp; Чилл</span>
-                            <span>95%</span>
-                        </div>
-                        <div class="w-full h-1.5 rounded-full bg-obsidian/90 overflow-hidden border border-purple-500/20">
-                            <div class="h-full w-[95%] skill-bar-fill rounded-full"></div>
-                        </div>
-                    </div>
-
-                    <div class="pt-3 border-t border-purple-500/20 flex items-center justify-between text-xs font-mono relative z-10">
-                        <span class="text-slate-400">Опыт: <strong class="text-purple-300">1,800+ ч.</strong></span>
-                        <span class="text-purple-300 group-hover:translate-x-1 transition inline-flex items-center gap-1">
-                            Ник: geko →
-                        </span>
-                    </div>
-                </div>
-
-                <!-- Игра 3: Counter-Strike 2 (CS2) -->
-                <div class="glass-card spotlight-card laser-border-box game-tilt-card rounded-2xl p-6 group cursor-pointer" onclick="triggerGameCardAction(event, 'Counter-Strike 2', '#c084fc')">
-                    <div class="flex items-start justify-between gap-4 mb-4 relative z-10">
-                        <div class="flex items-center gap-3.5">
-                            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-700/50 to-indigo-900/50 border border-purple-400/40 flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 group-hover:border-fuchsia-400 transition duration-300 shadow-[0_0_20px_rgba(168,85,247,0.3)]">
-                                <svg class="w-8 h-8 text-purple-300 group-hover:text-white transition" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9">
-                                    <circle cx="12" cy="12" r="8"/>
-                                    <line x1="12" y1="2" x2="12" y2="6"/>
-                                    <line x1="12" y1="18" x2="12" y2="22"/>
-                                    <line x1="2" y1="12" x2="6" y2="12"/>
-                                    <line x1="18" y1="12" x2="22" y2="12"/>
-                                    <circle cx="12" cy="12" r="2" fill="currentColor"/>
-                                </svg>
-                            </div>
-                            <div>
-                                <div class="flex items-center gap-2">
-                                    <h3 class="text-lg font-display font-bold text-white group-hover:text-purple-300 transition">
-                                        Counter-Strike 2
-                                    </h3>
-                                    <span class="px-2 py-0.5 text-[10px] font-mono uppercase rounded bg-purple-500/30 text-purple-200 border border-purple-400/40">
-                                        FPS
-                                    </span>
-                                </div>
-                                <p class="text-xs font-mono text-purple-300/80 mt-0.5">
-                                    Premier &amp; Faceit • Точные хэдшоты
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <p class="text-sm text-slate-300/90 leading-relaxed mb-4 relative z-10">
-                        Люблю напряжённые клатчи 1v3, жёсткий аим с AK-47 и AWP, чёткие раскидки на Mirage, Inferno и Anubis.
-                    </p>
-
-                    <div class="mb-3 relative z-10">
-                        <div class="flex justify-between text-[11px] font-mono text-purple-300/90 mb-1">
-                            <span>Точность &amp; Реакция</span>
-                            <span>92%</span>
-                        </div>
-                        <div class="w-full h-1.5 rounded-full bg-obsidian/90 overflow-hidden border border-purple-500/20">
-                            <div class="h-full w-[92%] skill-bar-fill rounded-full"></div>
-                        </div>
-                    </div>
-
-                    <div class="pt-3 border-t border-purple-500/20 flex items-center justify-between text-xs font-mono relative z-10">
-                        <span class="text-slate-400">Роль: <strong class="text-purple-300">Rifler / AWP</strong></span>
-                        <span class="text-purple-300 group-hover:translate-x-1 transition inline-flex items-center gap-1">
-                            Готов в лобби →
-                        </span>
-                    </div>
-                </div>
-
-                <!-- Игра 4: Dota 2 -->
-                <div class="glass-card spotlight-card laser-border-box game-tilt-card rounded-2xl p-6 group cursor-pointer" onclick="triggerGameCardAction(event, 'Dota 2', '#d946ef')">
-                    <div class="flex items-start justify-between gap-4 mb-4 relative z-10">
-                        <div class="flex items-center gap-3.5">
-                            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-700/50 to-violet-950/60 border border-purple-400/40 flex items-center justify-center group-hover:scale-110 group-hover:-rotate-6 group-hover:border-fuchsia-400 transition duration-300 shadow-[0_0_20px_rgba(217,70,239,0.3)]">
-                                <svg class="w-8 h-8 text-purple-300 group-hover:text-white transition" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9">
-                                    <rect x="3" y="3" width="18" height="18" rx="3"/>
-                                    <path d="M6 18L18 6" stroke-width="2.5" stroke-linecap="round"/>
-                                    <polygon points="7,7 11,7 7,11" fill="currentColor"/>
-                                    <polygon points="17,17 13,17 17,13" fill="currentColor"/>
-                                </svg>
-                            </div>
-                            <div>
-                                <div class="flex items-center gap-2">
-                                    <h3 class="text-lg font-display font-bold text-white group-hover:text-purple-300 transition">
-                                        Dota 2
-                                    </h3>
-                                    <span class="px-2 py-0.5 text-[10px] font-mono uppercase rounded bg-purple-500/30 text-purple-200 border border-purple-400/40">
-                                        MOBA
-                                    </span>
-                                </div>
-                                <p class="text-xs font-mono text-purple-300/80 mt-0.5">
-                                    Рейтинг &amp; Паблики • Хай-скилл мувы
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <p class="text-sm text-slate-300/90 leading-relaxed mb-4 relative z-10">
-                        Тащу катки на кор-позициях и в миду, контролирую карту, собираю метовые билды и делаю камбэки с мегакрипами.
-                    </p>
-
-                    <div class="mb-3 relative z-10">
-                        <div class="flex justify-between text-[11px] font-mono text-purple-300/90 mb-1">
-                            <span>Макро &amp; Тимплей</span>
-                            <span>94%</span>
-                        </div>
-                        <div class="w-full h-1.5 rounded-full bg-obsidian/90 overflow-hidden border border-purple-500/20">
-                            <div class="h-full w-[94%] skill-bar-fill rounded-full"></div>
-                        </div>
-                    </div>
-
-                    <div class="pt-3 border-t border-purple-500/20 flex items-center justify-between text-xs font-mono relative z-10">
-                        <span class="text-slate-400">Позиция: <strong class="text-purple-300">Pos 1 / Pos 2</strong></span>
-                        <span class="text-purple-300 group-hover:translate-x-1 transition inline-flex items-center gap-1">
-                            В поиске игры →
-                        </span>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- 4. ИНТЕРАКТИВНЫЙ КИБЕР-ТЕРМИНАЛ geko@system -->
-        <section class="reveal-item delay-400">
-            <div class="glass-card spotlight-card rounded-3xl overflow-hidden border border-purple-500/35">
-                <!-- Верхняя шапка окна терминала -->
-                <div class="px-5 py-3 bg-obsidian/90 border-b border-purple-500/25 flex items-center justify-between">
-                    <div class="flex items-center gap-2">
-                        <span class="w-3 h-3 rounded-full bg-fuchsia-500/80 shadow-[0_0_8px_#d946ef]"></span>
-                        <span class="w-3 h-3 rounded-full bg-purple-500/80 shadow-[0_0_8px_#a855f7]"></span>
-                        <span class="w-3 h-3 rounded-full bg-indigo-500/80 shadow-[0_0_8px_#6366f1]"></span>
-                        <span class="ml-2 text-xs font-mono text-purple-300 font-semibold">geko@cyber-console:~#</span>
-                    </div>
-                    <span class="text-[11px] font-mono text-purple-400/80">ИНТЕРАКТИВНЫЙ ТЕРМИНАЛ</span>
-                </div>
-
-                <!-- Быстрые кнопки команд -->
-                <div class="px-5 pt-3.5 pb-2 flex flex-wrap items-center gap-2 border-b border-purple-500/15 bg-void/40">
-                    <span class="text-[11px] font-mono text-slate-400 mr-1">Быстрые команды:</span>
-                    <button onclick="executeTerminalCommand('whoami')" class="px-2.5 py-1 rounded-lg bg-purple-950/80 hover:bg-purple-800/80 border border-purple-400/30 text-xs font-mono text-purple-200 transition">whoami</button>
-                    <button onclick="executeTerminalCommand('games')" class="px-2.5 py-1 rounded-lg bg-purple-950/80 hover:bg-purple-800/80 border border-purple-400/30 text-xs font-mono text-purple-200 transition">games</button>
-                    <button onclick="executeTerminalCommand('server')" class="px-2.5 py-1 rounded-lg bg-purple-950/80 hover:bg-purple-800/80 border border-purple-400/30 text-xs font-mono text-purple-200 transition">server</button>
-                    <button onclick="executeTerminalCommand('socials')" class="px-2.5 py-1 rounded-lg bg-purple-950/80 hover:bg-purple-800/80 border border-purple-400/30 text-xs font-mono text-purple-200 transition">socials</button>
-                    <button onclick="executeTerminalCommand('matrix')" class="px-2.5 py-1 rounded-lg bg-fuchsia-950/80 hover:bg-fuchsia-800/80 border border-fuchsia-400/40 text-xs font-mono text-fuchsia-200 transition">matrix</button>
-                    <button onclick="executeTerminalCommand('overdrive')" class="px-2.5 py-1 rounded-lg bg-fuchsia-950/80 hover:bg-fuchsia-800/80 border border-fuchsia-400/40 text-xs font-mono text-fuchsia-200 transition">overdrive</button>
-                    <button onclick="executeTerminalCommand('clear')" class="px-2.5 py-1 rounded-lg bg-slate-900/80 hover:bg-slate-800 border border-slate-600/40 text-xs font-mono text-slate-300 transition">clear</button>
-                </div>
-
-                <!-- Лог вывода терминала -->
-                <div id="terminal-output" class="p-5 font-mono text-xs sm:text-sm space-y-2 max-h-56 overflow-y-auto bg-obsidian/60 text-purple-200">
-                    <div class="text-purple-400">[SYSTEM] Инициализация био-терминала geko v4.0 успешно завершена.</div>
-                    <div class="text-slate-300">Нажми на любую команду выше или введи <span class="text-fuchsia-400 font-semibold">help</span> в строке ниже.</div>
-                </div>
-
-                <!-- Строка ввода команды -->
-                <form onsubmit="handleTerminalSubmit(event)" class="px-5 py-3 bg-obsidian/90 border-t border-purple-500/25 flex items-center gap-2">
-                    <span class="text-fuchsia-400 font-mono text-sm font-bold">&gt;</span>
-                    <input id="terminal-input" type="text" placeholder="Введи команду (help, whoami, games, matrix, overdrive)..." autocomplete="off" class="w-full bg-transparent text-xs sm:text-sm font-mono text-white placeholder-purple-300/40 focus:outline-none">
-                    <button type="submit" class="px-3 py-1 rounded-lg bg-purple-600/40 hover:bg-purple-600/70 border border-purple-400/40 text-xs font-mono text-white transition">
-                        RUN
-                    </button>
-                </form>
-            </div>
-        </section>
-
-        <!-- 5. СЕКЦИЯ КОНТАКТОВ И СОЦСЕТЕЙ ("Связаться со мной") -->
-        <section class="reveal-item delay-500">
-            <div class="flex items-center justify-between mb-4 px-1">
-                <div class="flex items-center gap-2.5">
-                    <span class="w-2 h-6 rounded-full bg-gradient-to-b from-fuchsia-400 to-purple-700 shadow-[0_0_14px_#9333ea]"></span>
-                    <h2 class="text-xl sm:text-2xl font-display font-bold text-white tracking-tight">
-                        Связаться со мной
-                    </h2>
-                </div>
-                <span class="text-xs font-mono text-purple-300/80">
-                    Прямые ссылки + быстрое копирование
-                </span>
+        <!-- 3. ЛЮБИМЫЕ ИГРЫ -->
+        <section class="reveal-up delay-3 space-y-4">
+            <div class="flex items-center gap-3 px-1">
+                <span class="w-1.5 h-5 rounded-full bg-gradient-to-b from-fuchsia-400 to-purple-600 shadow-[0_0_12px_#a855f7]"></span>
+                <h2 class="text-lg sm:text-xl font-display font-bold text-white tracking-tight">
+                    Во что я играю
+                </h2>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                
+
+                <!-- Minecraft -->
+                <div class="glass-card spotlight-card laser-border tilt-card rounded-2xl p-5 sm:p-6 group">
+                    <div class="relative z-10 flex items-center gap-4">
+                        <div class="w-13 h-13 p-3.5 rounded-2xl bg-purple-500/15 border border-purple-400/30 text-purple-300 group-hover:text-white group-hover:bg-purple-600/35 group-hover:scale-110 group-hover:shadow-[0_0_25px_rgba(168,85,247,0.45)] transition duration-300 shrink-0">
+                            <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-base sm:text-lg font-display font-bold text-white group-hover:text-purple-200 transition">
+                                Minecraft
+                            </h3>
+                            <p class="text-xs sm:text-sm text-purple-200/65 mt-0.5">
+                                Свой сервер, выживание и строительство
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Roblox -->
+                <div class="glass-card spotlight-card laser-border tilt-card rounded-2xl p-5 sm:p-6 group">
+                    <div class="relative z-10 flex items-center gap-4">
+                        <div class="w-13 h-13 p-3.5 rounded-2xl bg-purple-500/15 border border-purple-400/30 text-purple-300 group-hover:text-white group-hover:bg-purple-600/35 group-hover:scale-110 group-hover:shadow-[0_0_25px_rgba(168,85,247,0.45)] transition duration-300 shrink-0">
+                            <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="5" y="5" width="14" height="14" rx="2.5" transform="rotate(14 12 12)" />
+                                <rect x="10" y="10" width="4" height="4" transform="rotate(14 12 12)" fill="currentColor" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-base sm:text-lg font-display font-bold text-white group-hover:text-purple-200 transition">
+                                Roblox
+                            </h3>
+                            <p class="text-xs sm:text-sm text-purple-200/65 mt-0.5">
+                                Фановые режимы и чилл с друзьями
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CS2 -->
+                <div class="glass-card spotlight-card laser-border tilt-card rounded-2xl p-5 sm:p-6 group">
+                    <div class="relative z-10 flex items-center gap-4">
+                        <div class="w-13 h-13 p-3.5 rounded-2xl bg-purple-500/15 border border-purple-400/30 text-purple-300 group-hover:text-white group-hover:bg-purple-600/35 group-hover:scale-110 group-hover:shadow-[0_0_25px_rgba(168,85,247,0.45)] transition duration-300 shrink-0">
+                            <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9">
+                                <circle cx="12" cy="12" r="8"/>
+                                <line x1="12" y1="2" x2="12" y2="6"/>
+                                <line x1="12" y1="18" x2="12" y2="22"/>
+                                <line x1="2" y1="12" x2="6" y2="12"/>
+                                <line x1="18" y1="12" x2="22" y2="12"/>
+                                <circle cx="12" cy="12" r="2" fill="currentColor"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-base sm:text-lg font-display font-bold text-white group-hover:text-purple-200 transition">
+                                CS2
+                            </h3>
+                            <p class="text-xs sm:text-sm text-purple-200/65 mt-0.5">
+                                Красивые хэдшоты и напряжённые клатчи
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dota 2 -->
+                <div class="glass-card spotlight-card laser-border tilt-card rounded-2xl p-5 sm:p-6 group">
+                    <div class="relative z-10 flex items-center gap-4">
+                        <div class="w-13 h-13 p-3.5 rounded-2xl bg-purple-500/15 border border-purple-400/30 text-purple-300 group-hover:text-white group-hover:bg-purple-600/35 group-hover:scale-110 group-hover:shadow-[0_0_25px_rgba(168,85,247,0.45)] transition duration-300 shrink-0">
+                            <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9">
+                                <rect x="3" y="3" width="18" height="18" rx="3.5"/>
+                                <path d="M6 18L18 6" stroke-width="2.4" stroke-linecap="round"/>
+                                <polygon points="7,7 11,7 7,11" fill="currentColor"/>
+                                <polygon points="17,17 13,17 17,13" fill="currentColor"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-base sm:text-lg font-display font-bold text-white group-hover:text-purple-200 transition">
+                                Dota 2
+                            </h3>
+                            <p class="text-xs sm:text-sm text-purple-200/65 mt-0.5">
+                                Динамичные катки и красивые камбэки
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 4. СОЦСЕТИ И ССЫЛКИ -->
+        <section class="reveal-up delay-4 space-y-4">
+            <div class="flex items-center gap-3 px-1">
+                <span class="w-1.5 h-5 rounded-full bg-gradient-to-b from-fuchsia-400 to-purple-600 shadow-[0_0_12px_#a855f7]"></span>
+                <h2 class="text-lg sm:text-xl font-display font-bold text-white tracking-tight">
+                    Мои ссылки
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
                 <!-- Discord -->
-                <div class="glass-card spotlight-card laser-border-box rounded-2xl p-4 sm:p-5 flex items-center justify-between group hover:-translate-y-1 transition-all duration-300">
-                    <a href="https://discord.com/users/1173915236789669893" target="_blank" rel="noopener noreferrer" onclick="playClickSound(680, 'sine')" class="flex items-center gap-4 relative z-10 flex-1">
-                        <div class="w-12 h-12 rounded-xl bg-purple-600/25 border border-purple-400/35 flex items-center justify-center text-purple-300 group-hover:bg-purple-600 group-hover:text-white group-hover:shadow-[0_0_22px_#9333ea] transition duration-300 shrink-0">
+                <a href="https://discord.com/users/1173915236789669893" target="_blank" rel="noopener noreferrer" class="glass-card spotlight-card laser-border shimmer-hover tilt-card rounded-2xl p-4 sm:p-5 flex items-center justify-between group">
+                    <div class="shimmer-wave"></div>
+                    <div class="flex items-center gap-4 relative z-10">
+                        <div class="w-12 h-12 rounded-xl bg-purple-600/20 border border-purple-400/30 flex items-center justify-center text-purple-300 group-hover:bg-purple-600 group-hover:text-white group-hover:shadow-[0_0_25px_#9333ea] transition duration-300">
                             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/>
                             </svg>
                         </div>
                         <div>
-                            <div class="text-sm font-display font-bold text-white group-hover:text-purple-300 transition">
+                            <div class="text-sm sm:text-base font-display font-bold text-white group-hover:text-purple-200 transition">
                                 Discord
                             </div>
-                            <div class="text-xs font-mono text-slate-400">
-                                Профиль geko • Открыть
+                            <div class="text-xs text-purple-200/60">
+                                Мой профиль
                             </div>
                         </div>
-                    </a>
-                    <div class="flex items-center gap-1.5 relative z-10">
-                        <button onclick="copyTextToClipboard('https://discord.com/users/1173915236789669893', 'Ссылка на Discord скопирована!')" class="p-2 rounded-xl bg-white/[0.04] hover:bg-purple-600/30 border border-purple-500/25 text-purple-300 transition" title="Скопировать ссылку">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
-                            </svg>
-                        </button>
-                        <a href="https://discord.com/users/1173915236789669893" target="_blank" rel="noopener noreferrer" class="p-2 rounded-xl bg-purple-600/20 hover:bg-purple-600 text-purple-300 hover:text-white transition" title="Перейти">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
-                            </svg>
-                        </a>
                     </div>
-                </div>
+                    <div class="relative z-10 w-9 h-9 rounded-xl bg-white/[0.04] border border-purple-400/20 flex items-center justify-center text-purple-300 group-hover:bg-purple-500/30 group-hover:text-white group-hover:translate-x-1 transition duration-300">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                        </svg>
+                    </div>
+                </a>
 
                 <!-- Telegram -->
-                <div class="glass-card spotlight-card laser-border-box rounded-2xl p-4 sm:p-5 flex items-center justify-between group hover:-translate-y-1 transition-all duration-300">
-                    <a href="https://t.me/nadist2033" target="_blank" rel="noopener noreferrer" onclick="playClickSound(680, 'sine')" class="flex items-center gap-4 relative z-10 flex-1">
-                        <div class="w-12 h-12 rounded-xl bg-purple-600/25 border border-purple-400/35 flex items-center justify-center text-purple-300 group-hover:bg-purple-600 group-hover:text-white group-hover:shadow-[0_0_22px_#9333ea] transition duration-300 shrink-0">
+                <a href="https://t.me/nadist2033" target="_blank" rel="noopener noreferrer" class="glass-card spotlight-card laser-border shimmer-hover tilt-card rounded-2xl p-4 sm:p-5 flex items-center justify-between group">
+                    <div class="shimmer-wave"></div>
+                    <div class="flex items-center gap-4 relative z-10">
+                        <div class="w-12 h-12 rounded-xl bg-purple-600/20 border border-purple-400/30 flex items-center justify-center text-purple-300 group-hover:bg-purple-600 group-hover:text-white group-hover:shadow-[0_0_25px_#9333ea] transition duration-300">
                             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
                             </svg>
                         </div>
                         <div>
-                            <div class="text-sm font-display font-bold text-white group-hover:text-purple-300 transition">
+                            <div class="text-sm sm:text-base font-display font-bold text-white group-hover:text-purple-200 transition">
                                 Telegram
                             </div>
-                            <div class="text-xs font-mono text-slate-400">
-                                @nadist2033 • Написать в ЛС
+                            <div class="text-xs text-purple-200/60">
+                                @nadist2033
                             </div>
                         </div>
-                    </a>
-                    <div class="flex items-center gap-1.5 relative z-10">
-                        <button onclick="copyTextToClipboard('@nadist2033', 'Юзернейм @nadist2033 скопирован!')" class="p-2 rounded-xl bg-white/[0.04] hover:bg-purple-600/30 border border-purple-500/25 text-purple-300 transition" title="Скопировать @nadist2033">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
-                            </svg>
-                        </button>
-                        <a href="https://t.me/nadist2033" target="_blank" rel="noopener noreferrer" class="p-2 rounded-xl bg-purple-600/20 hover:bg-purple-600 text-purple-300 hover:text-white transition" title="Перейти">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
-                            </svg>
-                        </a>
                     </div>
-                </div>
+                    <div class="relative z-10 w-9 h-9 rounded-xl bg-white/[0.04] border border-purple-400/20 flex items-center justify-center text-purple-300 group-hover:bg-purple-500/30 group-hover:text-white group-hover:translate-x-1 transition duration-300">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                        </svg>
+                    </div>
+                </a>
 
-                <!-- Steam Профиль -->
-                <div class="glass-card spotlight-card laser-border-box rounded-2xl p-4 sm:p-5 flex items-center justify-between group hover:-translate-y-1 transition-all duration-300">
-                    <a href="https://steamcommunity.com/profiles/76561199562717819/" target="_blank" rel="noopener noreferrer" onclick="playClickSound(680, 'sine')" class="flex items-center gap-4 relative z-10 flex-1">
-                        <div class="w-12 h-12 rounded-xl bg-purple-600/25 border border-purple-400/35 flex items-center justify-center text-purple-300 group-hover:bg-purple-600 group-hover:text-white group-hover:shadow-[0_0_22px_#9333ea] transition duration-300 shrink-0">
+                <!-- Steam -->
+                <a href="https://steamcommunity.com/profiles/76561199562717819/" target="_blank" rel="noopener noreferrer" class="glass-card spotlight-card laser-border shimmer-hover tilt-card rounded-2xl p-4 sm:p-5 flex items-center justify-between group">
+                    <div class="shimmer-wave"></div>
+                    <div class="flex items-center gap-4 relative z-10">
+                        <div class="w-12 h-12 rounded-xl bg-purple-600/20 border border-purple-400/30 flex items-center justify-center text-purple-300 group-hover:bg-purple-600 group-hover:text-white group-hover:shadow-[0_0_25px_#9333ea] transition duration-300">
                             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M11.979 0C5.678 0 .511 4.86.022 11.037l6.432 2.658c.545-.371 1.203-.59 1.912-.59.063 0 .125.004.188.006l2.861-4.142V8.91c0-2.495 2.028-4.524 4.524-4.524 2.494 0 4.524 2.031 4.524 4.527s-2.03 4.525-4.524 4.525h-.105l-4.076 2.911c0 .052.004.105.004.159 0 1.875-1.515 3.396-3.39 3.396-1.635 0-3.016-1.173-3.331-2.727L.436 15.27C1.862 20.307 6.486 24 11.979 24c6.627 0 11.999-5.373 11.999-12S18.605 0 11.979 0zM7.54 18.21l-1.473-.61c.262.543.714.999 1.314 1.25 1.297.539 2.793-.076 3.332-1.375.263-.63.264-1.319.005-1.949s-.75-1.121-1.377-1.383c-.624-.26-1.29-.249-1.878-.03l1.523.63c.956.4 1.409 1.5 1.009 2.455-.397.957-1.497 1.41-2.455 1.012H7.54zm11.415-9.303c0-1.662-1.353-3.015-3.015-3.015-1.665 0-3.015 1.353-3.015 3.015 0 1.665 1.35 3.015 3.015 3.015 1.663 0 3.015-1.35 3.015-3.015zm-5.273-.005c0-1.252 1.013-2.266 2.265-2.266 1.249 0 2.266 1.014 2.266 2.266 0 1.251-1.017 2.265-2.266 2.265-1.252 0-2.265-1.014-2.265-2.265z"/>
                             </svg>
                         </div>
                         <div>
-                            <div class="text-sm font-display font-bold text-white group-hover:text-purple-300 transition">
-                                Steam Профиль
+                            <div class="text-sm sm:text-base font-display font-bold text-white group-hover:text-purple-200 transition">
+                                Steam
                             </div>
-                            <div class="text-xs font-mono text-slate-400">
-                                CS2 &amp; Dota 2 • Добавить в друзья
+                            <div class="text-xs text-purple-200/60">
+                                Профиль Steam
                             </div>
                         </div>
-                    </a>
-                    <div class="flex items-center gap-1.5 relative z-10">
-                        <button onclick="copyTextToClipboard('https://steamcommunity.com/profiles/76561199562717819/', 'Ссылка на Steam скопирована!')" class="p-2 rounded-xl bg-white/[0.04] hover:bg-purple-600/30 border border-purple-500/25 text-purple-300 transition" title="Скопировать ссылку Steam">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
-                            </svg>
-                        </button>
-                        <a href="https://steamcommunity.com/profiles/76561199562717819/" target="_blank" rel="noopener noreferrer" class="p-2 rounded-xl bg-purple-600/20 hover:bg-purple-600 text-purple-300 hover:text-white transition" title="Перейти">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
-                            </svg>
-                        </a>
                     </div>
-                </div>
+                    <div class="relative z-10 w-9 h-9 rounded-xl bg-white/[0.04] border border-purple-400/20 flex items-center justify-center text-purple-300 group-hover:bg-purple-500/30 group-hover:text-white group-hover:translate-x-1 transition duration-300">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                        </svg>
+                    </div>
+                </a>
 
                 <!-- Twitch -->
-                <div class="glass-card spotlight-card laser-border-box rounded-2xl p-4 sm:p-5 flex items-center justify-between group hover:-translate-y-1 transition-all duration-300">
-                    <a href="https://www.twitch.tv/gekosd" target="_blank" rel="noopener noreferrer" onclick="playClickSound(680, 'sine')" class="flex items-center gap-4 relative z-10 flex-1">
-                        <div class="w-12 h-12 rounded-xl bg-purple-600/25 border border-purple-400/35 flex items-center justify-center text-purple-300 group-hover:bg-purple-600 group-hover:text-white group-hover:shadow-[0_0_22px_#9333ea] transition duration-300 shrink-0">
+                <a href="https://www.twitch.tv/gekosd" target="_blank" rel="noopener noreferrer" class="glass-card spotlight-card laser-border shimmer-hover tilt-card rounded-2xl p-4 sm:p-5 flex items-center justify-between group">
+                    <div class="shimmer-wave"></div>
+                    <div class="flex items-center gap-4 relative z-10">
+                        <div class="w-12 h-12 rounded-xl bg-purple-600/20 border border-purple-400/30 flex items-center justify-center text-purple-300 group-hover:bg-purple-600 group-hover:text-white group-hover:shadow-[0_0_25px_#9333ea] transition duration-300">
                             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"/>
                             </svg>
                         </div>
                         <div>
-                            <div class="text-sm font-display font-bold text-white group-hover:text-purple-300 transition">
+                            <div class="text-sm sm:text-base font-display font-bold text-white group-hover:text-purple-200 transition">
                                 Twitch
                             </div>
-                            <div class="text-xs font-mono text-slate-400">
-                                twitch.tv/gekosd • Стримы
+                            <div class="text-xs text-purple-200/60">
+                                twitch.tv/gekosd
                             </div>
                         </div>
-                    </a>
-                    <div class="flex items-center gap-1.5 relative z-10">
-                        <button onclick="copyTextToClipboard('https://www.twitch.tv/gekosd', 'Ссылка на Twitch скопирована!')" class="p-2 rounded-xl bg-white/[0.04] hover:bg-purple-600/30 border border-purple-500/25 text-purple-300 transition" title="Скопировать ссылку Twitch">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
-                            </svg>
-                        </button>
-                        <a href="https://www.twitch.tv/gekosd" target="_blank" rel="noopener noreferrer" class="p-2 rounded-xl bg-purple-600/20 hover:bg-purple-600 text-purple-300 hover:text-white transition" title="Перейти">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
-                            </svg>
-                        </a>
                     </div>
-                </div>
+                    <div class="relative z-10 w-9 h-9 rounded-xl bg-white/[0.04] border border-purple-400/20 flex items-center justify-center text-purple-300 group-hover:bg-purple-500/30 group-hover:text-white group-hover:translate-x-1 transition duration-300">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                        </svg>
+                    </div>
+                </a>
 
             </div>
         </section>
 
-        <!-- 6. ПОДВАЛ САЙТА (ВСЕ ПРАВА ЗАЩИЩЕНЫ) -->
-        <footer class="pt-8 text-center space-y-4">
-            <div class="w-full h-px bg-gradient-to-r from-transparent via-purple-500/50 to-transparent shadow-[0_0_15px_rgba(168,85,247,0.6)]"></div>
-            <div class="inline-flex items-center gap-2.5 px-6 py-2.5 rounded-full bg-void/80 border border-purple-500/30 text-xs font-mono text-purple-200/90 shadow-[0_0_25px_rgba(147,51,234,0.2)]">
-                <span class="w-2 h-2 rounded-full bg-purple-400 animate-pulse"></span>
-                <span>© 2026 <strong class="text-purple-300">geko</strong> — Все права защищены.</span>
-            </div>
-        </footer>
-
     </main>
 
-    <!-- ВСПЛЫВАЮЩЕЕ УВЕДОМЛЕНИЕ (TOAST) -->
-    <div id="toast-notification" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 pointer-events-none opacity-0 translate-y-6 transition-all duration-300">
-        <div class="px-5 py-3.5 rounded-2xl bg-void/95 border border-purple-400/60 backdrop-blur-xl shadow-[0_0_40px_rgba(168,85,247,0.75)] flex items-center gap-3">
-            <div class="w-7 h-7 rounded-full bg-purple-600/30 border border-purple-400 flex items-center justify-center text-purple-200 shrink-0">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
-                </svg>
-            </div>
-            <span id="toast-message" class="text-xs sm:text-sm font-mono font-medium text-white">
-                Скопировано в буфер обмена!
-            </span>
-        </div>
-    </div>
+    <!-- ПОДВАЛ САЙТА -->
+    <footer class="w-full max-w-3xl mx-auto px-5 pb-10 text-center space-y-5 relative z-10 reveal-up delay-5">
+        <div class="w-full h-px bg-gradient-to-r from-transparent via-purple-500/40 to-transparent"></div>
+        <p class="text-xs sm:text-sm text-purple-200/60 font-medium tracking-wide">
+            © <span class="text-purple-300 font-semibold">geko</span> — Все права защищены
+        </p>
+    </footer>
 
-    <!-- СКРИПТЫ ИНТЕРАКТИВНОСТИ, WEB AUDIO API, ЧАСТИЦ, 3D ФИГУР И ТЕРМИНАЛА -->
+    <!-- СКРИПТЫ АНИМАЦИЙ -->
     <script>
-        /* =========================================================
-           1. ЗВУКОВОЙ ДВИЖОК (WEB AUDIO API: КЛИКИ + DARK SYNTH)
-           ========================================================= */
-        let sfxEnabled = true;
-        let synthPlaying = false;
-        let audioCtx = null;
-        let synthInterval = null;
-
-        function ensureAudioContext() {
-            if (!audioCtx) {
-                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            }
-            if (audioCtx.state === 'suspended') {
-                audioCtx.resume();
-            }
-        }
-
-        function playClickSound(freq = 600, type = 'sine', duration = 0.09) {
-            if (!sfxEnabled) return;
-            try {
-                ensureAudioContext();
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-                osc.type = type;
-                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(freq * 1.45, audioCtx.currentTime + duration);
-
-                gain.gain.setValueAtTime(0.055, audioCtx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
-
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-                osc.start();
-                osc.stop(audioCtx.currentTime + duration);
-            } catch (e) {}
-        }
-
-        function playPowerChord() {
-            if (!sfxEnabled) return;
-            const freqs = [440, 554.37, 659.25, 880];
-            freqs.forEach((f, idx) => {
-                setTimeout(() => playClickSound(f, 'triangle', 0.14), idx * 45);
-            });
-        }
-
-        function toggleSoundEffects() {
-            sfxEnabled = !sfxEnabled;
-            document.getElementById('sfx-status-text').textContent = sfxEnabled ? 'SFX: ВКЛ' : 'SFX: ВЫКЛ';
-            if (sfxEnabled) playClickSound(680, 'triangle');
-        }
-
-        // Процедурный Dark Synthwave арпеджиатор без внешних MP3 файлов
-        const synthNotes = [110, 130.81, 146.83, 164.81, 196.00, 220.00, 261.63, 196.00];
-        let noteIdx = 0;
-
-        function toggleSynthAtmosphere() {
-            synthPlaying = !synthPlaying;
-            const statusText = document.getElementById('music-status-text');
-            statusText.textContent = synthPlaying ? 'SYNTH: ИГРАЕТ' : 'SYNTH: ВЫКЛ';
-
-            if (synthPlaying) {
-                ensureAudioContext();
-                playClickSound(520, 'sawtooth');
-                synthInterval = setInterval(() => {
-                    if (!synthPlaying) return;
-                    try {
-                        const osc = audioCtx.createOscillator();
-                        const filter = audioCtx.createBiquadFilter();
-                        const gain = audioCtx.createGain();
-
-                        osc.type = 'sawtooth';
-                        const freq = synthNotes[noteIdx % synthNotes.length];
-                        noteIdx++;
-
-                        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-                        filter.type = 'lowpass';
-                        filter.frequency.setValueAtTime(650, audioCtx.currentTime);
-                        filter.frequency.exponentialRampToValueAtTime(180, audioCtx.currentTime + 0.22);
-
-                        gain.gain.setValueAtTime(0.035, audioCtx.currentTime);
-                        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.24);
-
-                        osc.connect(filter);
-                        filter.connect(gain);
-                        gain.connect(audioCtx.destination);
-
-                        osc.start();
-                        osc.stop(audioCtx.currentTime + 0.24);
-                    } catch (e) {}
-                }, 230);
-            } else {
-                if (synthInterval) clearInterval(synthInterval);
-            }
-        }
-
-        // Мини-визуализатор эквалайзера в верхней панели
-        const visCanvas = document.getElementById('audio-visualizer');
-        const visCtx = visCanvas.getContext('2d');
-        function animateVisualizer() {
-            visCtx.clearRect(0, 0, visCanvas.width, visCanvas.height);
-            const bars = 6;
-            for (let i = 0; i < bars; i++) {
-                const h = synthPlaying
-                    ? Math.floor(Math.random() * 11) + 3
-                    : 3 + Math.sin(Date.now() * 0.005 + i) * 1.5;
-                visCtx.fillStyle = synthPlaying ? '#e879f9' : '#9333ea';
-                visCtx.fillRect(i * 4.5 + 1, visCanvas.height - h, 3, h);
-            }
-            requestAnimationFrame(animateVisualizer);
-        }
-
-        /* =========================================================
-           2. ЭФФЕКТ ДЕКОДИРОВАНИЯ НИКА GEKO И ПЕЧАТНАЯ МАШИНКА
-           ========================================================= */
-        const glyphChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*!?';
-        let isScrambling = false;
-
-        function scrambleHeroName() {
-            if (isScrambling) return;
-            isScrambling = true;
-            playClickSound(760, 'sine', 0.06);
-            const titleEl = document.getElementById('geko-main-title');
-            const target = 'geko';
-            let iteration = 0;
-
-            const interval = setInterval(() => {
-                titleEl.innerText = target
-                    .split('')
-                    .map((letter, index) => {
-                        if (index < iteration) return target[index];
-                        return glyphChars[Math.floor(Math.random() * glyphChars.length)].toLowerCase();
-                    })
-                    .join('');
-
-                if (iteration >= target.length) {
-                    clearInterval(interval);
-                    titleEl.innerText = target;
-                    isScrambling = false;
-                }
-                iteration += 1 / 3;
-            }, 35);
-        }
-
-        const roles = [
+        /* 1. Плавная печать подзаголовка */
+        const phrases = [
+            "Minecraft • Roblox • CS2 • Dota 2",
             "Владелец сервера Minecraft",
-            "Играю в Minecraft • Roblox • CS2 • Dota 2",
-            "Создатель собственных игровых миров",
-            "Добро пожаловать в официальное био geko"
+            "В своём вайбе ✨"
         ];
-        let roleIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
-        const typewriterElement = document.getElementById('typewriter-text');
+        let phraseIdx = 0;
+        let charIdx = 0;
+        let deleting = false;
+        const typeEl = document.getElementById('typewriter');
 
-        function runTypewriter() {
-            const currentRole = roles[roleIndex];
-            if (isDeleting) {
-                charIndex--;
-                typewriterElement.textContent = currentRole.substring(0, charIndex);
+        function tickTypewriter() {
+            const current = phrases[phraseIdx];
+            if (deleting) {
+                charIdx--;
+                typeEl.textContent = current.substring(0, charIdx);
             } else {
-                charIndex++;
-                typewriterElement.textContent = currentRole.substring(0, charIndex);
+                charIdx++;
+                typeEl.textContent = current.substring(0, charIdx);
             }
 
-            let speed = isDeleting ? 30 : 65;
-            if (!isDeleting && charIndex === currentRole.length) {
-                speed = 2200;
-                isDeleting = true;
-            } else if (isDeleting && charIndex === 0) {
-                isDeleting = false;
-                roleIndex = (roleIndex + 1) % roles.length;
-                speed = 380;
+            let delay = deleting ? 32 : 65;
+            if (!deleting && charIdx === current.length) {
+                delay = 2300;
+                deleting = true;
+            } else if (deleting && charIdx === 0) {
+                deleting = false;
+                phraseIdx = (phraseIdx + 1) % phrases.length;
+                delay = 400;
             }
-            setTimeout(runTypewriter, speed);
+            setTimeout(tickTypewriter, delay);
         }
 
-        /* =========================================================
-           3. КНОПКА "+REP / ЗАРЯДИТЬ ВАЙБ" С ЧАСТИЦАМИ И LOCALSTORAGE
-           ========================================================= */
-        let repCount = parseInt(localStorage.getItem('geko_rep_count') || '777', 10);
-        const repCounterEl = document.getElementById('rep-counter');
-        if (repCounterEl) repCounterEl.textContent = repCount;
-
-        function triggerRepBoost(event) {
-            repCount++;
-            localStorage.setItem('geko_rep_count', String(repCount));
-            repCounterEl.textContent = repCount;
-            playPowerChord();
-
-            const x = event ? event.clientX : window.innerWidth / 2;
-            const y = event ? event.clientY : window.innerHeight / 3;
-
-            // Создаём всплывающий текст "+1 REP ⚡"
-            const floatEl = document.createElement('div');
-            floatEl.className = 'floating-rep';
-            floatEl.style.left = `${x - 30 + (Math.random() * 24 - 12)}px`;
-            floatEl.style.top = `${y - 16}px`;
-            floatEl.textContent = '+1 REP ⚡';
-            document.body.appendChild(floatEl);
-            setTimeout(() => floatEl.remove(), 1100);
-
-            // Запускаем салют частиц в месте клика
-            spawnClickBurst(x, y, '#e879f9', 26);
+        /* 2. Вращение лазерной рамки и подсветка карточек */
+        let angle = 0;
+        function rotateLaserBorder() {
+            angle = (angle + 1.4) % 360;
+            document.documentElement.style.setProperty('--border-angle', `${angle}deg`);
+            requestAnimationFrame(rotateLaserBorder);
         }
 
-        /* =========================================================
-           4. ВЗАИМОДЕЙСТВИЕ С КАРТОЧКАМИ ИГР И КОПИРОВАНИЕ
-           ========================================================= */
-        let toastTimeout = null;
-
-        function triggerGameCardAction(event, gameName, colorHex) {
-            spawnClickBurst(event.clientX, event.clientY, colorHex, 24);
-            copyTextToClipboard('geko', `${gameName}: ник geko скопирован!`);
-        }
-
-        function copyTextToClipboard(text, message) {
-            playClickSound(740, 'sine');
-            const tempInput = document.createElement('textarea');
-            tempInput.value = text;
-            tempInput.style.position = 'fixed';
-            tempInput.style.opacity = '0';
-            document.body.appendChild(tempInput);
-            tempInput.focus();
-            tempInput.select();
-
-            try {
-                document.execCommand('copy');
-            } catch (err) {
-                if (navigator.clipboard) navigator.clipboard.writeText(text);
-            }
-            document.body.removeChild(tempInput);
-            showToast(message || 'Скопировано в буфер обмена!');
-        }
-
-        function showToast(message) {
-            const toast = document.getElementById('toast-notification');
-            const toastMsg = document.getElementById('toast-message');
-            toastMsg.textContent = message;
-
-            toast.classList.remove('opacity-0', 'translate-y-6');
-            toast.classList.add('opacity-100', 'translate-y-0');
-
-            if (toastTimeout) clearTimeout(toastTimeout);
-            toastTimeout = setTimeout(() => {
-                toast.classList.remove('opacity-100', 'translate-y-0');
-                toast.classList.add('opacity-0', 'translate-y-6');
-            }, 2800);
-        }
-
-        /* =========================================================
-           5. ИНТЕРАКТИВНЫЙ КИБЕР-ТЕРМИНАЛ geko@system
-           ========================================================= */
-        const terminalOutput = document.getElementById('terminal-output');
-        const terminalInput = document.getElementById('terminal-input');
-
-        function appendTerminalLine(htmlContent) {
-            const line = document.createElement('div');
-            line.innerHTML = htmlContent;
-            terminalOutput.appendChild(line);
-            terminalOutput.scrollTop = terminalOutput.scrollHeight;
-        }
-
-        function executeTerminalCommand(rawCmd) {
-            const cmd = rawCmd.trim().toLowerCase();
-            if (!cmd) return;
-            playClickSound(640, 'triangle');
-
-            appendTerminalLine(`<span class="text-fuchsia-400 font-bold">geko@sys:~$</span> <span class="text-white">${cmd}</span>`);
-
-            switch (cmd) {
-                case 'help':
-                    appendTerminalLine(`<span class="text-purple-300">Доступные команды:</span> <span class="text-white">whoami</span>, <span class="text-white">games</span>, <span class="text-white">server</span>, <span class="text-white">socials</span>, <span class="text-white">matrix</span>, <span class="text-white">overdrive</span>, <span class="text-white">rep</span>, <span class="text-white">clear</span>`);
-                    break;
-                case 'whoami':
-                    appendTerminalLine(`<span class="text-emerald-300">Никнейм:</span> <strong>geko</strong> | <span class="text-purple-300">Роль:</span> Владелец сервера Minecraft &amp; Геймер.`);
-                    break;
-                case 'games':
-                    appendTerminalLine(`<span class="text-purple-300">Любимые дисциплины:</span> 1. Minecraft [MAIN] • 2. Roblox • 3. Counter-Strike 2 • 4. Dota 2`);
-                    break;
-                case 'server':
-                    appendTerminalLine(`<span class="text-amber-300">👑 Статус:</span> <strong>FOUNDER &amp; OWNER</strong> — Владелец собственного сервера Minecraft.`);
-                    break;
-                case 'socials':
-                    appendTerminalLine(`<span class="text-purple-300">Контакты geko:</span> Discord | Telegram (@nadist2033) | Steam | Twitch (twitch.tv/gekosd)`);
-                    break;
-                case 'matrix':
-                    toggleMatrixMode();
-                    appendTerminalLine(`<span class="text-fuchsia-300">[MATRIX]</span> Режим фиолетовой матрицы переключён!`);
-                    break;
-                case 'overdrive':
-                    toggleOverdriveMode();
-                    appendTerminalLine(`<span class="text-amber-300">[OVERDRIVE]</span> Турбо-режим неонового свечения переключён!`);
-                    break;
-                case 'rep':
-                    triggerRepBoost();
-                    appendTerminalLine(`<span class="text-fuchsia-300">[+REP]</span> Респект для geko успешно отправлен! Текущий счёт: <strong>${repCount} ⚡</strong>`);
-                    break;
-                case 'clear':
-                    terminalOutput.innerHTML = `<div class="text-purple-400">[SYSTEM] Консоль очищена. Введи <span class="text-fuchsia-400">help</span> для списка команд.</div>`;
-                    break;
-                default:
-                    appendTerminalLine(`<span class="text-rose-400">Команда не распознана: "${cmd}".</span> Введи <span class="text-fuchsia-300">help</span> для списка команд.`);
-            }
-        }
-
-        function handleTerminalSubmit(e) {
-            e.preventDefault();
-            const val = terminalInput.value;
-            terminalInput.value = '';
-            executeTerminalCommand(val);
-        }
-
-        /* =========================================================
-           6. ПЕРЕКЛЮЧАТЕЛИ MATRIX MODE & OVERDRIVE MODE
-           ========================================================= */
-        let matrixMode = false;
-        let overdriveMode = false;
-
-        function toggleMatrixMode() {
-            matrixMode = !matrixMode;
-            document.getElementById('matrix-status-text').textContent = matrixMode ? 'MATRIX: ВКЛ' : 'MATRIX: ВЫКЛ';
-            playClickSound(540, 'sawtooth');
-            showToast(matrixMode ? 'Режим Фиолетовой Матрицы активирован!' : 'Космическое созвездие возвращено!');
-        }
-
-        function toggleOverdriveMode() {
-            overdriveMode = !overdriveMode;
-            document.body.classList.toggle('overdrive-mode', overdriveMode);
-            document.getElementById('overdrive-status-text').textContent = overdriveMode ? 'OVERDRIVE: ВКЛ' : 'OVERDRIVE';
-            playPowerChord();
-            showToast(overdriveMode ? '⚡ OVERDRIVE АКТИВИРОВАН!' : 'Overdrive отключён');
-        }
-
-        /* =========================================================
-           7. КАСТОМНЫЙ КУРСОР, 3D TILT И ВРАЩЕНИЕ ЛАЗЕРНЫХ РАМОК
-           ========================================================= */
-        const cursorDot = document.getElementById('custom-cursor-dot');
-        const cursorRing = document.getElementById('custom-cursor-ring');
-        let mouseX = window.innerWidth / 2;
-        let mouseY = window.innerHeight / 2;
-        let ringX = mouseX;
-        let ringY = mouseY;
-
-        window.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-            if (cursorDot) {
-                cursorDot.style.left = `${mouseX}px`;
-                cursorDot.style.top = `${mouseY}px`;
-            }
-            // Лёгкий шлейф искр за курсором
-            if (Math.random() < 0.32) {
-                trailSparks.push({
-                    x: mouseX,
-                    y: mouseY,
-                    vx: (Math.random() - 0.5) * 1.2,
-                    vy: (Math.random() - 0.5) * 1.2,
-                    radius: Math.random() * 2 + 1,
-                    alpha: 0.75,
-                    color: Math.random() > 0.5 ? '#e879f9' : '#a855f7'
-                });
-            }
-        });
-
-        window.addEventListener('mousedown', (e) => {
-            spawnClickBurst(e.clientX, e.clientY, '#c084fc', 16);
-        });
-
-        function animateCustomCursor() {
-            ringX += (mouseX - ringX) * 0.18;
-            ringY += (mouseY - ringY) * 0.18;
-            if (cursorRing) {
-                cursorRing.style.left = `${ringX}px`;
-                cursorRing.style.top = `${ringY}px`;
-            }
-            requestAnimationFrame(animateCustomCursor);
-        }
-
-        // Плавное вращение угла лазерной рамки
-        let borderAngle = 0;
-        function animateLaserBorders() {
-            borderAngle = (borderAngle + (overdriveMode ? 4 : 2)) % 360;
-            document.documentElement.style.setProperty('--angle', `${borderAngle}deg`);
-            requestAnimationFrame(animateLaserBorders);
-        }
-
-        function initCardInteractions() {
-            // Эффект расширения курсора при наведении на интерактивные элементы
-            const interactives = document.querySelectorAll('a, button, input, .cursor-pointer');
-            interactives.forEach(el => {
-                el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
-                el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
-            });
-
-            // Подсветка курсора внутри всех карточек .spotlight-card
-            const spotlightCards = document.querySelectorAll('.spotlight-card');
-            spotlightCards.forEach(card => {
+        function setupCards() {
+            const cards = document.querySelectorAll('.spotlight-card');
+            cards.forEach(card => {
                 card.addEventListener('mousemove', (e) => {
                     const rect = card.getBoundingClientRect();
                     card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
@@ -1463,237 +666,141 @@
                 });
             });
 
-            // 3D наклон главной карточки профиля
-            const heroCard = document.getElementById('hero-card');
-            if (heroCard) {
-                heroCard.addEventListener('mousemove', (e) => {
-                    if (window.innerWidth < 768) return;
-                    const rect = heroCard.getBoundingClientRect();
-                    const rotateX = (((e.clientY - rect.top) - rect.height / 2) / (rect.height / 2)) * -5;
-                    const rotateY = (((e.clientX - rect.left) - rect.width / 2) / (rect.width / 2)) * 5;
-                    heroCard.style.transform = `rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg)`;
-                });
-                heroCard.addEventListener('mouseleave', () => {
-                    heroCard.style.transform = 'rotateX(0deg) rotateY(0deg)';
-                });
-            }
-
-            // 3D наклон карточек игр и блока владельца
-            const gameCards = document.querySelectorAll('.game-tilt-card');
-            gameCards.forEach(card => {
+            const tiltCards = document.querySelectorAll('.tilt-card');
+            tiltCards.forEach(card => {
                 card.addEventListener('mousemove', (e) => {
                     if (window.innerWidth < 768) return;
                     const rect = card.getBoundingClientRect();
-                    const rotateX = (((e.clientY - rect.top) - rect.height / 2) / (rect.height / 2)) * -4.5;
-                    const rotateY = (((e.clientX - rect.left) - rect.width / 2) / (rect.width / 2)) * 4.5;
-                    card.style.transform = `perspective(950px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-4px)`;
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const rotateX = ((y - rect.height / 2) / (rect.height / 2)) * -4.5;
+                    const rotateY = ((x - rect.width / 2) / (rect.width / 2)) * 4.5;
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-3px)`;
                 });
+
                 card.addEventListener('mouseleave', () => {
-                    card.style.transform = 'perspective(950px) rotateX(0deg) rotateY(0deg) translateY(0px)';
+                    card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)';
                 });
             });
         }
 
-        /* =========================================================
-           8. ХОЛСТ: ЧАСТИЦЫ, 3D КУБЫ, ВЗРЫВЫ КЛИКОВ И MATRIX RAIN
-           ========================================================= */
+        /* 3. Интерактивный фон со светящимися фиолетовыми частицами и шлейфом мыши */
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
+        const cursorGlow = document.getElementById('cursor-glow');
+
         let particles = [];
-        let burstParticles = [];
-        let shockwaves = [];
-        let trailSparks = [];
-        let matrixColumns = [];
-        let wireframeCubes = [];
+        let sparks = [];
+        let mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
 
         function resizeCanvas() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            initMatrixColumns();
         }
 
         window.addEventListener('resize', () => {
             resizeCanvas();
-            createParticles();
+            initParticles();
         });
 
-        function initMatrixColumns() {
-            const fontSize = 15;
-            const cols = Math.floor(canvas.width / fontSize);
-            matrixColumns = Array(cols).fill(1);
-        }
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+            if (cursorGlow) {
+                cursorGlow.style.left = `${mouse.x}px`;
+                cursorGlow.style.top = `${mouse.y}px`;
+            }
 
-        function createParticles() {
+            if (Math.random() < 0.35) {
+                sparks.push({
+                    x: mouse.x,
+                    y: mouse.y,
+                    vx: (Math.random() - 0.5) * 1.1,
+                    vy: (Math.random() - 0.5) * 1.1 - 0.3,
+                    radius: Math.random() * 2 + 0.8,
+                    alpha: 0.7,
+                    color: Math.random() > 0.5 ? '#e879f9' : '#a855f7'
+                });
+            }
+        });
+
+        function initParticles() {
             particles = [];
-            const count = Math.min(80, Math.floor((canvas.width * canvas.height) / 16000));
-            const colors = ['#9333ea', '#c084fc', '#e879f9', '#7e22ce'];
+            const count = Math.min(70, Math.floor((canvas.width * canvas.height) / 17000));
+            const colors = ['#9333ea', '#a855f7', '#c084fc', '#e879f9'];
 
             for (let i = 0; i < count; i++) {
                 particles.push({
                     x: Math.random() * canvas.width,
                     y: Math.random() * canvas.height,
-                    radius: Math.random() * 2.2 + 0.8,
-                    vx: (Math.random() - 0.5) * 0.55,
-                    vy: (Math.random() - 0.5) * 0.55,
+                    radius: Math.random() * 2.2 + 0.7,
+                    vx: (Math.random() - 0.5) * 0.4,
+                    vy: (Math.random() - 0.5) * 0.4,
                     color: colors[Math.floor(Math.random() * colors.length)],
-                    alpha: Math.random() * 0.65 + 0.2
-                });
-            }
-
-            // Плавающие 3D каркасные кубы (отсылка к Minecraft & Cyber пространству)
-            wireframeCubes = [];
-            for (let i = 0; i < 4; i++) {
-                wireframeCubes.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height,
-                    size: 22 + Math.random() * 22,
-                    rx: Math.random() * Math.PI,
-                    ry: Math.random() * Math.PI,
-                    vx: (Math.random() - 0.5) * 0.35,
-                    vy: (Math.random() - 0.5) * 0.35
+                    alpha: Math.random() * 0.6 + 0.2
                 });
             }
         }
 
-        function spawnClickBurst(x, y, color = '#e879f9', count = 18) {
-            shockwaves.push({ x, y, radius: 4, maxRadius: 75, alpha: 0.85, color });
-            for (let i = 0; i < count; i++) {
-                const angle = (Math.PI * 2 * i) / count + (Math.random() - 0.5) * 0.3;
-                const speed = 1.5 + Math.random() * 4.5;
-                burstParticles.push({
-                    x,
-                    y,
-                    vx: Math.cos(angle) * speed,
-                    vy: Math.sin(angle) * speed,
-                    radius: Math.random() * 2.8 + 1.2,
-                    alpha: 1,
-                    color
-                });
-            }
-        }
+        function animateCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        function drawWireframeCube(cube) {
-            const s = cube.size;
-            const vertices = [
-                [-1, -1, -1], [1, -1, -1], [1, 1, -1], [-1, 1, -1],
-                [-1, -1, 1],  [1, -1, 1],  [1, 1, 1],  [-1, 1, 1]
-            ];
-            const edges = [
-                [0,1],[1,2],[2,3],[3,0],
-                [4,5],[5,6],[6,7],[7,4],
-                [0,4],[1,5],[2,6],[3,7]
-            ];
+            for (let i = 0; i < particles.length; i++) {
+                const p = particles[i];
+                p.x += p.vx;
+                p.y += p.vy;
 
-            const projected = vertices.map(([x, y, z]) => {
-                // Вращение по X
-                let y1 = y * Math.cos(cube.rx) - z * Math.sin(cube.rx);
-                let z1 = y * Math.sin(cube.rx) + z * Math.cos(cube.rx);
-                // Вращение по Y
-                let x2 = x * Math.cos(cube.ry) + z1 * Math.sin(cube.ry);
-                return [cube.x + x2 * s, cube.y + y1 * s];
-            });
+                if (p.x < 0) p.x = canvas.width;
+                if (p.x > canvas.width) p.x = 0;
+                if (p.y < 0) p.y = canvas.height;
+                if (p.y > canvas.height) p.y = 0;
 
-            ctx.strokeStyle = 'rgba(192, 132, 252, 0.16)';
-            ctx.lineWidth = 1;
-            ctx.beginPath();
-            edges.forEach(([a, b]) => {
-                ctx.moveTo(projected[a][0], projected[a][1]);
-                ctx.lineTo(projected[b][0], projected[b][1]);
-            });
-            ctx.stroke();
-        }
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fillStyle = p.color;
+                ctx.globalAlpha = p.alpha;
+                ctx.fill();
 
-        const matrixChars = 'GEKO01MINECRAFTCS2DOTA2ROBLOX⚡👑';
-
-        function animateBackground() {
-            if (matrixMode) {
-                // Эффект Фиолетовой Матрицы
-                ctx.fillStyle = 'rgba(4, 3, 7, 0.12)';
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-                ctx.fillStyle = '#c084fc';
-                ctx.font = '14px "JetBrains Mono", monospace';
-
-                for (let i = 0; i < matrixColumns.length; i++) {
-                    const char = matrixChars[Math.floor(Math.random() * matrixChars.length)];
-                    ctx.fillText(char, i * 15, matrixColumns[i] * 15);
-                    if (matrixColumns[i] * 15 > canvas.height && Math.random() > 0.975) {
-                        matrixColumns[i] = 0;
-                    }
-                    matrixColumns[i]++;
-                }
-            } else {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-                // Отрисовка 3D кубов
-                wireframeCubes.forEach(cube => {
-                    cube.x += cube.vx;
-                    cube.y += cube.vy;
-                    cube.rx += 0.008;
-                    cube.ry += 0.011;
-                    if (cube.x < 0) cube.x = canvas.width;
-                    if (cube.x > canvas.width) cube.x = 0;
-                    if (cube.y < 0) cube.y = canvas.height;
-                    if (cube.y > canvas.height) cube.y = 0;
-                    drawWireframeCube(cube);
-                });
-
-                // Отрисовка созвездия частиц
-                const speedMult = overdriveMode ? 2.2 : 1;
-                for (let i = 0; i < particles.length; i++) {
-                    const p = particles[i];
-                    p.x += p.vx * speedMult;
-                    p.y += p.vy * speedMult;
-
-                    if (p.x < 0) p.x = canvas.width;
-                    if (p.x > canvas.width) p.x = 0;
-                    if (p.y < 0) p.y = canvas.height;
-                    if (p.y > canvas.height) p.y = 0;
-
-                    ctx.beginPath();
-                    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                    ctx.fillStyle = p.color;
-                    ctx.globalAlpha = p.alpha;
-                    ctx.fill();
-
-                    const dxMouse = mouseX - p.x;
-                    const dyMouse = mouseY - p.y;
-                    const distMouse = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse);
-                    if (distMouse < 145) {
+                // Мягкие линии между близкими частицами
+                for (let j = i + 1; j < particles.length; j++) {
+                    const p2 = particles[j];
+                    const dx = p.x - p2.x;
+                    const dy = p.y - p2.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 115) {
                         ctx.beginPath();
                         ctx.moveTo(p.x, p.y);
-                        ctx.lineTo(mouseX, mouseY);
-                        ctx.strokeStyle = '#e879f9';
-                        ctx.globalAlpha = (1 - distMouse / 145) * 0.32;
-                        ctx.lineWidth = 0.9;
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.strokeStyle = '#a855f7';
+                        ctx.globalAlpha = (1 - dist / 115) * 0.14;
+                        ctx.lineWidth = 0.6;
                         ctx.stroke();
                     }
+                }
 
-                    for (let j = i + 1; j < particles.length; j++) {
-                        const p2 = particles[j];
-                        const dx = p.x - p2.x;
-                        const dy = p.y - p2.y;
-                        const dist = Math.sqrt(dx * dx + dy * dy);
-                        if (dist < 110) {
-                            ctx.beginPath();
-                            ctx.moveTo(p.x, p.y);
-                            ctx.lineTo(p2.x, p2.y);
-                            ctx.strokeStyle = '#9333ea';
-                            ctx.globalAlpha = (1 - dist / 110) * 0.15;
-                            ctx.lineWidth = 0.6;
-                            ctx.stroke();
-                        }
-                    }
+                // Притяжение взгляда к курсору
+                const dxm = mouse.x - p.x;
+                const dym = mouse.y - p.y;
+                const distMouse = Math.sqrt(dxm * dxm + dym * dym);
+                if (distMouse < 140) {
+                    ctx.beginPath();
+                    ctx.moveTo(p.x, p.y);
+                    ctx.lineTo(mouse.x, mouse.y);
+                    ctx.strokeStyle = '#e879f9';
+                    ctx.globalAlpha = (1 - distMouse / 140) * 0.25;
+                    ctx.lineWidth = 0.8;
+                    ctx.stroke();
                 }
             }
 
-            // Отрисовка шлейфа искр за курсором
-            for (let i = trailSparks.length - 1; i >= 0; i--) {
-                const s = trailSparks[i];
+            // Мягкие искры за курсором
+            for (let i = sparks.length - 1; i >= 0; i--) {
+                const s = sparks[i];
                 s.x += s.vx;
                 s.y += s.vy;
-                s.alpha -= 0.035;
+                s.alpha -= 0.025;
                 if (s.alpha <= 0) {
-                    trailSparks.splice(i, 1);
+                    sparks.splice(i, 1);
                     continue;
                 }
                 ctx.beginPath();
@@ -1703,74 +810,17 @@
                 ctx.fill();
             }
 
-            // Отрисовка ударных волн и салюта при кликах
-            for (let i = shockwaves.length - 1; i >= 0; i--) {
-                const sw = shockwaves[i];
-                sw.radius += 3.2;
-                sw.alpha -= 0.035;
-                if (sw.alpha <= 0) {
-                    shockwaves.splice(i, 1);
-                    continue;
-                }
-                ctx.beginPath();
-                ctx.arc(sw.x, sw.y, sw.radius, 0, Math.PI * 2);
-                ctx.strokeStyle = sw.color;
-                ctx.globalAlpha = sw.alpha;
-                ctx.lineWidth = 1.8;
-                ctx.stroke();
-            }
-
-            for (let i = burstParticles.length - 1; i >= 0; i--) {
-                const bp = burstParticles[i];
-                bp.x += bp.vx;
-                bp.y += bp.vy;
-                bp.vx *= 0.96;
-                bp.vy *= 0.96;
-                bp.alpha -= 0.028;
-                if (bp.alpha <= 0) {
-                    burstParticles.splice(i, 1);
-                    continue;
-                }
-                ctx.beginPath();
-                ctx.arc(bp.x, bp.y, bp.radius, 0, Math.PI * 2);
-                ctx.fillStyle = bp.color;
-                ctx.globalAlpha = bp.alpha;
-                ctx.fill();
-            }
-
             ctx.globalAlpha = 1;
-            requestAnimationFrame(animateBackground);
+            requestAnimationFrame(animateCanvas);
         }
 
-        /* =========================================================
-           9. ТАЙМЕР СЕССИИ И ЖИВОЙ ПИНГ
-           ========================================================= */
-        let secondsElapsed = 0;
-        setInterval(() => {
-            secondsElapsed++;
-            const mins = String(Math.floor(secondsElapsed / 60)).padStart(2, '0');
-            const secs = String(secondsElapsed % 60).padStart(2, '0');
-            const timerEl = document.getElementById('session-timer');
-            if (timerEl) timerEl.textContent = `${mins}:${secs}`;
-
-            const pingEl = document.getElementById('live-ping');
-            if (pingEl && secondsElapsed % 3 === 0) {
-                pingEl.textContent = `${11 + Math.floor(Math.random() * 5)} ms`;
-            }
-        }, 1000);
-
-        /* =========================================================
-           10. ИНИЦИАЛИЗАЦИЯ ВСЕХ СИСТЕМ ПРИ ЗАГРУЗКЕ
-           ========================================================= */
         window.onload = function () {
             resizeCanvas();
-            createParticles();
-            animateBackground();
-            animateCustomCursor();
-            animateLaserBorders();
-            animateVisualizer();
-            runTypewriter();
-            initCardInteractions();
+            initParticles();
+            animateCanvas();
+            rotateLaserBorder();
+            tickTypewriter();
+            setupCards();
         };
     </script>
 </body>
